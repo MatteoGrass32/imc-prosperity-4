@@ -158,8 +158,13 @@ for the confidence-interval step and the shared-random-numbers delta, not as an 
 
 ## Round 5: allocation under a quadratic fee
 
-Nine goods, a news item on each, one day to hold, and a fee on an allocation of `p` percent
-of budget of
+A budget of 1,000,000 on a market open for one day, nine goods, and a news feed called
+Ashflow Alpha with one article per good. The directional call on each good came from reading
+its article; there was no price history to fit.
+
+![Ashflow Alpha](round5_portfolio/figures/ashflow_alpha_news.jpg)
+
+The structure was the tractable part. A fee on an allocation of `p` percent of budget of
 
 ```
 (p / 100)^2 * budget
@@ -170,13 +175,16 @@ to hold.
 
 **[`round5_portfolio/portafoglio.m`](round5_portfolio/portafoglio.m)** nets that fee against
 the gross return of each of the nine positions and prints the book. It is short because once
-the fee is quadratic the interesting decision is how flat to spread rather than what to pick,
-and the directional call on each good came from reading its news item, not from the script.
+the fee is quadratic the interesting decision is how flat to spread rather than what to pick.
+Doubling a position quadruples what it costs to hold, so the fee alone rules out
+concentrating on the article you like most, whatever it says.
 
 ### How it went
 
 **+30,261, 1573rd for the round.** More PnL than round 4 and a much worse rank, which says
 the returns were there for everyone and the allocation was not where the edge was.
+
+![Round 5 manual result](round5_portfolio/figures/round5_manual_result.png)
 
 ---
 

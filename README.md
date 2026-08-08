@@ -239,7 +239,14 @@ same lesson at a much higher price.
 
 ### Round 3: options on a new underlying
 
-Two underlyings plus a ten-strike option chain.
+Two underlyings plus a ten-strike option chain. Both underlyings turned out to be
+mean-reverting rather than trending, which is what makes them quotable. Across all three
+days `HYDROGEL_PACK` stays inside a band of 188 ticks around a mean of 9,991, and
+`VELVETFRUIT_EXTRACT` inside 102 around 5,250. Neither goes anywhere, which is the opposite
+of the pepper root problem in round 1.
+
+![HYDROGEL_PACK mid price](research/round3/hydrogel_pack_mid.png)
+
 [`traders/round3_trader.py`](traders/round3_trader.py) market makes the chain with
 per-strike parameters, wider quotes near the money where adverse selection costs most, and
 skips the far out-of-the-money strikes priced at the minimum tick where there is no edge to
