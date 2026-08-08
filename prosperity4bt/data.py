@@ -4,42 +4,12 @@ from typing import Optional
 
 from prosperity4bt.datamodel import Symbol, Trade
 from prosperity4bt.file_reader import FileReader
+from prosperity4bt.rounds import ALL_LIMITS
 
 DEFAULT_POSITION_LIMIT = 80
 
-# Round 1 wiki.
-ROUND_1_LIMITS: dict[str, int] = {"EMERALDS": 80, "TOMATOES": 80}
-
-# Round 5 wiki: "All products have a position limit of 10".
-ROUND_5_PRODUCTS = [
-    f"{group}_{variant}"
-    for group, variants in {
-        "GALAXY_SOUNDS": ["BLACK_HOLES", "DARK_MATTER", "PLANETARY_RINGS", "SOLAR_FLAMES", "SOLAR_WINDS"],
-        "SLEEP_POD": ["COTTON", "LAMB_WOOL", "NYLON", "POLYESTER", "SUEDE"],
-        "MICROCHIP": ["CIRCLE", "OVAL", "RECTANGLE", "SQUARE", "TRIANGLE"],
-        "PEBBLES": ["XS", "S", "M", "L", "XL"],
-        "ROBOT": ["DISHES", "IRONING", "LAUNDRY", "MOPPING", "VACUUMING"],
-        "UV_VISOR": ["AMBER", "MAGENTA", "ORANGE", "RED", "YELLOW"],
-        "TRANSLATOR": ["ASTRO_BLACK", "ECLIPSE_CHARCOAL", "GRAPHITE_MIST", "SPACE_GRAY", "VOID_BLUE"],
-        "PANEL": ["1X2", "1X4", "2X2", "2X4", "4X4"],
-        "OXYGEN_SHAKE": ["CHOCOLATE", "EVENING_BREATH", "GARLIC", "MINT", "MORNING_BREATH"],
-        "SNACKPACK": ["CHOCOLATE", "PISTACHIO", "RASPBERRY", "STRAWBERRY", "VANILLA"],
-    }.items()
-    for variant in variants
-]
-
-# Rounds 3-4: the two underlyings plus the VEV option chain.
-ROUND_3_4_LIMITS: dict[str, int] = {
-    "HYDROGEL_PACK": 200,
-    "VELVETFRUIT_EXTRACT": 200,
-    **{f"VEV_{strike}": 300 for strike in [4000, 4500, 5000, 5100, 5200, 5300, 5400, 5500, 6000, 6500]},
-}
-
-LIMITS: dict[str, int] = {
-    **ROUND_1_LIMITS,
-    **ROUND_3_4_LIMITS,
-    **{product: 10 for product in ROUND_5_PRODUCTS},
-}
+# Per-round products and limits live in one place; see prosperity4bt/rounds.py.
+LIMITS: dict[str, int] = ALL_LIMITS
 
 
 def get_position_limit(symbol: str, overrides: Optional[dict[str, int]] = None) -> int:

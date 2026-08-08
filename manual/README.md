@@ -1,37 +1,128 @@
-# Manual rounds
+# The manual challenges
 
-Alongside the algorithmic leg, each round had a manual challenge: a single one-shot
-decision, scored once, with no chance to iterate. These are the MATLAB scripts I wrote to
-size those decisions instead of guessing them.
+One decision per round, submitted once, scored once. No backtest, no second attempt, and in
+two of the five rounds the payoff depended on what every other team did, which makes them
+game theory problems rather than optimisation problems.
 
-## Round 4: pricing an option book and sizing it
+The work is MATLAB. It is organised by round below, and the sections are uneven because the
+surviving material is uneven: some rounds have scripts, one has only the reasoning.
 
-The challenge listed eleven contracts on one underlying at 50 with a volatility of 2.51,
-quoted two-sided, and asked for a book. Six were vanilla puts and calls across strikes at
-a three-week expiry, two were vanillas at two weeks, and three were exotic: a chooser, a
-digital put paying 10 below 40, and a down-and-out put struck at 45 that dies if the path
-ever touches 35.
+Overall the manual leg was the weaker half of the campaign: **1290th**, against 696th on the
+algorithmic side.
 
-**[`MontecarloSim.m`](round4_options/MontecarloSim.m)** prices all eleven under GBM.
-1,000 runs of 1,000,000 paths, discretised at four steps per trading day, with
-**antithetic variates**: half the normals are drawn, the other half are their negatives, so
-the sampling error on the symmetric part of the payoff cancels. The barrier is priced off
-the running path minimum rather than the terminal value, which is the whole point of that
-contract. Output is a theoretical price against the market mid, and the edge.
+---
 
-**[`AllocazioneOttima.m`](round4_options/AllocazioneOttima.m)** turns those prices into
-positions. Deltas come from bump-and-revalue, repricing at 50.1 and 49.9, and the two sets
-of paths are built from the **same normals**, so the difference between them is signal and
-not Monte Carlo noise. It buys where theo clears the ask by a minimum edge, sells where it
-clears the bid, skips otherwise, then hedges the net delta on the underlying, capped at 200
-lots, and charges itself the half-spread for doing so. It reports the expected PnL of the
-book net of that hedging cost, rather than the gross number.
+## Round 1
 
-**[`MonteSim_Interv_Conf.m`](round4_options/MonteSim_Interv_Conf.m)** and
+Nothing survived. No script, no notes.
+
+---
+
+## Round 2: allocating across three levers, one of which is a race
+
+The payoff was
+
+```
+RESEARCH(X) * SCALE(Y) * HIT_RATE(RANK(Z)) - BUDGET = PNL
+```
+
+Three levers to split a budget across. Research scaled logarithmically, Scale linearly, and
+Speed did neither: it set a hit rate that depended on your **rank in Speed spending against
+every other team**. So two of the three were an optimisation and the third was a race, where
+the value of a unit of budget depended entirely on how many teams put in more.
+
+The approach was to map the Pareto frontier of the three-way split, then deliberately bid
+**below** the frontier point on Speed. In a rank-based race the marginal unit that buys a
+place is worth a lot and the units above it are worth nothing, so the optimum against a
+fixed field is unstable: everyone who computes it lands in the same place and the rank you
+paid for evaporates. Sitting under it gives up a little expected value for a position that
+does not depend on being the only one who did the arithmetic.
+
+The field was modelled with a **t distribution rather than a normal**, because the tail is
+where this is decided. A handful of teams overcommitting to Speed moves the whole rank
+ladder, and a normal underweights exactly that.
+
+Submitted allocation: **15% Research, 43% Scale, 42% Speed**, which returned a hit rate of
+0.74 at rank #858.
+
+The figure below is the platform's own read-out for that allocation.
+
+![Round 2 manual](figures/round2_allocation.png)
+
+No script survived for this one, so the above is the reasoning rather than something you can
+re-run. It is here because it is the round where the game-theoretic framing mattered most,
+not because there is code to show.
+
+---
+
+## Round 3: two sealed bids against a known distribution
+
+Counterparties hold reserve prices uniform on 670 to 920 in steps of 5, and the product
+resells at 920. You submit two bids. The first trades against any reserve below it. The
+second trades against the remaining reserves below it, but if it falls under the average
+second bid of every other team, the profit on it is scaled by
+
+```
+((920 - avgB2) / (920 - B2))^3
+```
+
+Cubic, so the penalty for being under the field is severe and non-linear. Like round 2, the
+second bid is a decision about other players, not about the distribution.
+
+**[`round3_bids/Bid1.m`](round3_bids/Bid1.m)** solves the first bid twice. Once analytically,
+accumulating probability mass below each candidate bid and taking the expectation directly,
+and once by simulating 10,000 draws of the counterparty pool. Two methods, one answer, which
+is the only reason to trust either. The file also carries the clarifications collected before
+committing: whether the range is inclusive, whether a counterparty can trade twice, and
+whether the penalty applies to the first bid.
+
+**[`round3_bids/Bid1and2_Simulation.m`](round3_bids/Bid1and2_Simulation.m)** searches the
+pair jointly. It grids B1 and B2 over 700 to 900, draws 500 populations of 1,000
+counterparties, samples a distribution for the field's average second bid, and computes the
+penalty **per simulation** rather than once at the mean. That last detail is the point: the
+penalty is convex, so averaging the inputs first and applying the formula once would report a
+number the strategy never earns.
+
+### How it went
+
+Submitted bids were **766** and **862**. The field came in at an average first bid of 768 and
+an average second bid of **859**.
+
+The second bid cleared the field average by 3, which is the whole game: above `avgB2` the
+cubic penalty does not apply at all, below it the profit on the second bid is cut hard. The
+first bid landed just under the field's, which costs a little volume and nothing else.
+
+![Round 3 bid distribution](figures/round3_bid_distribution.png)
+
+---
+
+## Round 4: pricing an option book, then sizing it
+
+Eleven contracts on an underlying at 50 with volatility 2.51, quoted two-sided. Six vanilla
+puts and calls at a three-week expiry, two vanillas at two weeks, and three exotics: a
+chooser, a digital put paying 10 below 40, and a down-and-out put struck at 45 that dies if
+the path ever touches 35.
+
+**[`round4_options/MontecarloSim.m`](round4_options/MontecarloSim.m)** prices all eleven
+under GBM. 1,000 runs of 1,000,000 paths at four steps per trading day, with **antithetic
+variates**: half the normals are drawn and the other half are their negatives, so the
+sampling error on the symmetric part of the payoff cancels. The barrier is priced off the
+running path minimum rather than the terminal value, which is the only thing that makes it a
+barrier.
+
+**[`round4_options/AllocazioneOttima.m`](round4_options/AllocazioneOttima.m)** turns prices
+into positions. Deltas by bump-and-revalue at 50.1 and 49.9, with both sets of paths built
+from the **same normals**, so the difference is signal rather than Monte Carlo noise. It buys
+where theo clears the ask by a minimum edge, sells where it clears the bid, then hedges the
+net delta on the underlying, capped at 200 lots, and charges itself the half-spread for
+doing so, reporting expected PnL net of that cost.
+
+**[`round4_options/MonteSim_Interv_Conf.m`](round4_options/MonteSim_Interv_Conf.m)** and the
+two allocators
 **[`AllocOttima_Interv_Conf90.m`](round4_options/AllocOttima_Interv_Conf90.m)** /
 **[`AllocOttima_Interv_Conf95.m`](round4_options/AllocOttima_Interv_Conf95.m)** are the
-version that matters. The pricer returns a confidence interval per contract instead of a
-point estimate, and the allocator changes its rule accordingly:
+second pass. The pricer returns a confidence interval per contract instead of a point, and
+the trading rule changes to match:
 
 ```matlab
 % before: trade if the point estimate clears the quote
@@ -41,60 +132,58 @@ if theos(i) > asks(i) + min_edge
 if ci_low(i) > asks(i)
 ```
 
-Nothing is traded unless the entire interval sits on one side of the market. On this book
-the two rules disagree about exactly one contract out of eleven, and it is the right one.
-`AC_60_C` prices at 8.7908 against a bid of 8.80, so the point estimate sells it on an edge
-of about nine thousandths. Its 95% interval runs to 8.8011, which crosses the bid. The
-point estimate was claiming an edge smaller than its own error bar, and the interval rule
-drops the trade. Every other decision is unchanged.
+On this book the two rules disagree about one contract out of eleven. `AC_60_C` prices at
+8.7908 against a bid of 8.80, so the point estimate sells it on an edge of nine thousandths,
+while its 95% interval reaches 8.8011 and crosses the bid. The claimed edge was smaller than
+its own error bar. Every other decision is unchanged. The 95% variant also replaces the Monte
+Carlo deltas with closed-form Black-Scholes for the vanillas.
 
-What is left is a book of five positions against six skips, and the split is not random.
-All six skips are three-week vanillas, quoted tightly enough that no interval clears them.
-All three exotics trade, against quotes that were off by 0.30 on the chooser, 0.23 on the
-digital, and 18% of the price on the barrier. The two remaining trades are the two-week
-vanillas, at 0.12 each. The mispricing sat where the pricing was hard, which is the reason
-to build a path-dependent Monte Carlo instead of looking up Black-Scholes.
+What is left is five positions and six skips, and the split is not random. All six skips are
+three-week vanillas, quoted tightly. All three exotics trade, against quotes off by 0.30 on
+the chooser, 0.23 on the digital and 18% of price on the barrier. The two remaining trades
+are the two-week vanillas at 0.12 each. The mispricing was where the pricing was hard.
 
-The 95% variant also swaps the Monte Carlo deltas for closed-form Black-Scholes ones, since
-for the vanillas there was no reason to estimate what can be computed exactly.
+Figures for both passes are in [`round4_options/figures/`](round4_options/figures).
 
-Figures for both variants are in [`round4_options/figures/`](round4_options/figures).
+### How it went
 
-This is the same idea the algorithmic side of this repository learned the hard way, and it
-is worth stating plainly: a point estimate that clears a threshold by less than its own
-uncertainty is not an edge. The
-[25% out-of-sample haircut](../results/official_submissions.md#the-out-of-sample-haircut)
-measured on the algorithmic rounds is what that mistake costs when it is made at scale.
+**+26,131, 670th for the round**, the best of the five manual rounds.
 
-## Round 3: two sealed bids against a known distribution
+That is a reasonable result and not more than that. The pricing is textbook GBM with no
+attempt at a smile, the volatility is taken as given rather than fitted, and the interval
+rule was applied after the point-estimate version had already been built. It is worth reading
+for the confidence-interval step and the shared-random-numbers delta, not as an options desk.
 
-Counterparties hold reserve prices uniform on 670 to 920 in steps of 5, the product resells
-at 920, and you submit two bids. The second bid is penalised by
-`((920 - avgB2) / (920 - B2))^3` if it falls below the average second bid of every other
-player, which makes it a game against the field rather than against the distribution.
-
-**[`Bid1.m`](round3_bids/Bid1.m)** solves the first bid twice over: once analytically, by
-accumulating the probability mass below each candidate and taking the expected value
-directly, and once by simulating 10,000 draws of the counterparty pool. The two agree,
-which is the only reason to trust either. The file also carries the clarifications
-collected before committing, on how the two bids interact and what the penalty applies to.
-
-**[`Bid1and2_Simulation.m`](round3_bids/Bid1and2_Simulation.m)** searches the joint pair.
-It grids B1 and B2 over 700 to 900, draws 500 populations of 1,000 counterparties, samples
-a distribution for the field's average second bid, and computes the penalty per simulation
-rather than once at the mean, since the penalty is convex and averaging the inputs first
-would flatter the result.
+---
 
 ## Round 5: allocation under a quadratic fee
 
-**[`portafoglio.m`](round5_portfolio/portafoglio.m)** is short because the structure did the
-work. The fee on an allocation of `p` percent of budget is `(p/100)^2 * budget`, quadratic,
-so it prices concentration directly. The script nets that fee against the gross return of
-each of the nine positions and reports the book. The reason it stays small is that once the
-fee is quadratic, the interesting decision is how flat to spread rather than what to pick.
+Nine goods, a news item on each, one day to hold, and a fee on an allocation of `p` percent
+of budget of
 
-## Result
+```
+(p / 100)^2 * budget
+```
 
-The manual leg was the weaker half of the campaign: 1290th overall against 696th on the
-algorithmic side. Round 4 was its best round, 670th, which is also the round with the
-most work behind it on this page.
+Quadratic, so it prices concentration directly. Doubling a position quadruples what it costs
+to hold.
+
+**[`round5_portfolio/portafoglio.m`](round5_portfolio/portafoglio.m)** nets that fee against
+the gross return of each of the nine positions and prints the book. It is short because once
+the fee is quadratic the interesting decision is how flat to spread rather than what to pick,
+and the directional call on each good came from reading its news item, not from the script.
+
+### How it went
+
+**+30,261, 1573rd for the round.** More PnL than round 4 and a much worse rank, which says
+the returns were there for everyone and the allocation was not where the edge was.
+
+---
+
+## What the two game-theory rounds have in common
+
+Rounds 2 and 3 both pay out against the field rather than against a distribution, and both
+were approached the same way: find the optimum, then step off it deliberately. Below the
+Pareto point on Speed in round 2, above the field average on the second bid in round 3. In
+both cases the optimum computed against a fixed field is the place every other team that
+does the arithmetic also lands, which is exactly where it stops being worth anything.

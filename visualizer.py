@@ -9,12 +9,13 @@ import json
 import re
 
 # --- CONFIGURATION ---
-POSITION_LIMITS = {
-    "EMERALDS": 80,
-    "TOMATOES": 80,
-    # You can add future round assets here!
-}
-DEFAULT_LIMIT = 20  # Fallback just in case
+# Read from the same registry the backtester uses, so the inventory limit lines cannot
+# disagree with the limits the run was actually scored against. This file used to carry
+# its own copy holding only the tutorial products, which meant every round after the
+# tutorial was drawn against DEFAULT_LIMIT instead of its real limit.
+from prosperity4bt.rounds import ALL_LIMITS as POSITION_LIMITS
+
+DEFAULT_LIMIT = 80  # matches prosperity4bt.data.DEFAULT_POSITION_LIMIT
 
 
 st.set_page_config(page_title="Prosperity 4 Visualizer", layout="wide")
