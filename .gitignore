@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.pyc
+
+# Backtest output: one run of a round-5 day writes ~40 MB of sandbox logs.
+*.log
+
+.DS_Store
+.ipynb_checkpoints/

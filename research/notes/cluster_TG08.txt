@@ -1,0 +1,198 @@
+TG08: Panel
+============================================================
+STATISTICHE BASE
+============================================================
+
+PANEL_1X2:
+  Prezzo medio:        8922.73
+  Min / Max:           8539.33 / 9153.83
+  Return totale:       -1.09%
+  Autocorr lag=1:      0.0104
+  Autocorr lag=5:      0.0069
+  Autocorr lag=10:     -0.0196
+
+PANEL_1X4:
+  Prezzo medio:        9397.58
+  Min / Max:           8916.17 / 10007.50
+  Return totale:       -2.71%
+  Autocorr lag=1:      0.0035
+  Autocorr lag=5:      -0.0066
+  Autocorr lag=10:     -0.0101
+
+PANEL_2X2:
+  Prezzo medio:        9576.60
+  Min / Max:           9225.50 / 9907.50
+  Return totale:       -1.97%
+  Autocorr lag=1:      -0.0131
+  Autocorr lag=5:      -0.0119
+  Autocorr lag=10:     -0.0000
+
+PANEL_2X4:
+  Prezzo medio:        11265.37
+  Min / Max:           10556.83 / 11856.50
+  Return totale:       7.37%
+  Autocorr lag=1:      -0.0012
+  Autocorr lag=5:      -0.0082
+  Autocorr lag=10:     0.0167
+
+PANEL_4X4:
+  Prezzo medio:        9878.72
+  Min / Max:           9449.50 / 10391.00
+  Return totale:       -2.92%
+  Autocorr lag=1:      0.0027
+  Autocorr lag=5:      -0.0106
+  Autocorr lag=10:     0.0103
+
+============================================================
+CORRELAZIONE (returns)
+============================================================
+           PANEL_1X2  PANEL_1X4  PANEL_2X2  PANEL_2X4  PANEL_4X4
+PANEL_1X2      1.000      0.003      0.022     -0.006      0.006
+PANEL_1X4      0.003      1.000     -0.010      0.007     -0.008
+PANEL_2X2      0.022     -0.010      1.000      0.011     -0.010
+PANEL_2X4     -0.006      0.007      0.011      1.000      0.015
+PANEL_4X4      0.006     -0.008     -0.010      0.015      1.000
+
+============================================================
+ADF TEST — p<0.05: mean reverting | p>0.05: trend/random walk
+============================================================
+  PANEL_1X2                     : stat=  -1.882, p=0.3407  ❌ trend/random walk
+  PANEL_1X4                     : stat=  -1.904, p=0.3300  ❌ trend/random walk
+  PANEL_2X2                     : stat=  -2.284, p=0.1770  ❌ trend/random walk
+  PANEL_2X4                     : stat=  -1.404, p=0.5801  ❌ trend/random walk
+  PANEL_4X4                     : stat=  -1.218, p=0.6660  ❌ trend/random walk
+
+============================================================
+TREND (regressione lineare sul prezzo)
+============================================================
+  PANEL_1X2                     : slope=+0.027512, R²=0.2748, p=0.0000  📈 up
+  PANEL_1X4                     : slope=-0.038042, R²=0.1939, p=0.0000  📉 down
+  PANEL_2X2                     : slope=-0.000476, R²=0.0001, p=0.3101  📉 down
+  PANEL_2X4                     : slope=+0.111452, R²=0.8211, p=0.0000  📈 up
+  PANEL_4X4                     : slope=-0.040803, R²=0.3009, p=0.0000  📉 down
+
+============================================================
+COINTEGRAZIONE (p<0.05 = coppia cointegrata)
+============================================================
+      PANEL_1X2                      / PANEL_1X4                     : p=0.5641
+      PANEL_1X2                      / PANEL_2X2                     : p=0.5960
+      PANEL_1X2                      / PANEL_2X4                     : p=0.1834
+      PANEL_1X2                      / PANEL_4X4                     : p=0.5506
+      PANEL_1X4                      / PANEL_2X2                     : p=0.3216
+      PANEL_1X4                      / PANEL_2X4                     : p=0.8043
+      PANEL_1X4                      / PANEL_4X4                     : p=0.3921
+      PANEL_2X2                      / PANEL_2X4                     : p=0.3300
+      PANEL_2X2                      / PANEL_4X4                     : p=0.1365
+      PANEL_2X4                      / PANEL_4X4                     : p=0.4867
+
+============================================================
+Z-SCORE ROLLING (window=200) — % tempo fuori ±1.5
+============================================================
+  PANEL_1X2                     : z>+1.5: 16.7%  z<-1.5: 16.3%  z_mean=0.017  z_std=1.386
+  PANEL_1X4                     : z>+1.5: 16.5%  z<-1.5: 19.4%  z_mean=-0.124  z_std=1.468
+  PANEL_2X2                     : z>+1.5: 16.0%  z<-1.5: 18.2%  z_mean=-0.004  z_std=1.413
+  PANEL_2X4                     : z>+1.5: 19.2%  z<-1.5: 14.0%  z_mean=0.180  z_std=1.402
+  PANEL_4X4                     : z>+1.5: 14.3%  z<-1.5: 17.9%  z_mean=-0.062  z_std=1.396
+
+============================================================
+SLOPE PER GIORNO
+============================================================
+
+PANEL_1X2:
+  Day 1: slope=+0.024309, R²=0.0240  📈
+  Day 2: slope=+0.019716, R²=0.0180  📈
+  Day 3: slope=+0.001072, R²=0.0006  📈
+
+PANEL_1X4:
+  Day 1: slope=-0.105142, R²=0.4382  📉
+  Day 2: slope=-0.151971, R²=0.6801  📉
+  Day 3: slope=+0.220898, R²=0.8382  📈
+
+PANEL_2X2:
+  Day 1: slope=-0.034678, R²=0.0637  📉
+  Day 2: slope=-0.012130, R²=0.0165  📉
+  Day 3: slope=-0.091691, R²=0.4970  📉
+
+PANEL_2X4:
+  Day 1: slope=+0.140421, R²=0.7298  📈
+  Day 2: slope=+0.223483, R²=0.8880  📈
+  Day 3: slope=-0.066267, R²=0.3305  📉
+
+PANEL_4X4:
+  Day 1: slope=-0.039113, R²=0.1497  📉
+  Day 2: slope=-0.135410, R²=0.7551  📉
+  Day 3: slope=+0.066756, R²=0.2158  📈
+
+============================================================
+BID/ASK SPREAD MEDIO
+============================================================
+  PANEL_1X2                     : spread medio=11.51, max=14.00
+  PANEL_1X4                     : spread medio=8.38, max=10.00
+  PANEL_2X2                     : spread medio=8.52, max=10.00
+  PANEL_2X4                     : spread medio=9.84, max=12.00
+  PANEL_4X4                     : spread medio=8.75, max=10.00
+
+============================================================
+VARIAZIONE MEDIA PER STEP (tick implicito)
+============================================================
+  PANEL_1X2                     : mean=4.1897, median=3.6667, p95=10.3333
+  PANEL_1X4                     : mean=4.4000, median=3.8333, p95=10.6667
+  PANEL_2X2                     : mean=4.4471, median=3.8333, p95=10.8333
+  PANEL_2X4                     : mean=5.1603, median=4.3333, p95=12.5000
+  PANEL_4X4                     : mean=4.5487, median=3.8333, p95=11.1667
+
+  Segnali netti:
+
+PANEL_2X4: il trend più forte di tutti (R²=0.82) — long aggressivo finché il trend regge
+
+PANEL_2X2: down consistente tutti e 3 i giorni, nessuna inversione — short pulito
+
+PANEL_1X4 / PANEL_4X4: invertono violentemente a Day3 — pericolosi senza sapere il giorno
+
+PANEL_1X2: trend debole, poco da guadagnare
+
+La strategia è EMA trend-following adattivo — cattura il trend in corso e lo segue senza overfit a coefficienti fissi
+
+============================================================
+SCRIPT 1 — Slope per segmento
+============================================================
+
+PANEL_1X2:
+  Segmento  0: slope=+0.0275 📈
+
+PANEL_1X4:
+  Segmento  0: slope=-0.0380 📉
+
+PANEL_2X2:
+  Segmento  0: slope=-0.0005 📉
+
+PANEL_2X4:
+  Segmento  0: slope=+0.1115 📈
+
+PANEL_4X4:
+  Segmento  0: slope=-0.0408 📉
+
+============================================================
+SCRIPT 3 — Variazione prezzo per giorno
+============================================================
+
+--- Day 1 ---
+  PANEL_1X2                     : slope=-0.1283  Δtot=-1568.50  📉
+  PANEL_1X4                     : slope=+0.0963  Δtot=+1065.00  📈
+  PANEL_2X2                     : slope=+0.0220  Δtot= +111.50  📈
+  PANEL_2X4                     : slope=+0.1328  Δtot= +738.00  📈
+  PANEL_4X4                     : slope=-0.0132  Δtot= -321.50  📉
+
+--- Day 2 ---
+  PANEL_1X2                     : slope=+0.0865  Δtot= +425.00  📈
+  PANEL_1X4                     : slope=-0.2533  Δtot=-2372.00  📉
+  PANEL_2X2                     : slope=-0.0467  Δtot= -883.50  📉
+  PANEL_2X4                     : slope=+0.0791  Δtot= +738.00  📈
+  PANEL_4X4                     : slope=+0.0616  Δtot= +573.50  📈
+
+--- Day 3 ---
+  PANEL_1X2                     : slope=+0.1243  Δtot= +846.50  📈
+  PANEL_1X4                     : slope=+0.0429  Δtot= +497.50  📈
+  PANEL_2X2                     : slope=+0.0233  Δtot= +196.00  📈
+  PANEL_2X4                     : slope=+0.1225  Δtot= +894.50  📈
+  PANEL_4X4                     : slope=-0.1709  Δtot=-1127.00  📉

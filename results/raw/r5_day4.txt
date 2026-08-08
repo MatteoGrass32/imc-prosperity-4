@@ -1,0 +1,116 @@
+.venv/bin/python -m prosperity4bt traders/round5_final.py 5-4 --data ./data --out ./run_5-4.log
+Backtesting /Users/matteograssini/imc-prosperity-4/traders/round5_final.py on round 5 day 4
+  0%|          | 0/10000 [00:00<?, ?it/s]  2%|1         | 199/10000 [00:00<00:04, 1984.71it/s]  4%|3         | 398/10000 [00:00<00:05, 1719.57it/s]  6%|5         | 573/10000 [00:00<00:05, 1725.98it/s]  7%|7         | 747/10000 [00:00<00:05, 1723.07it/s]  9%|9         | 921/10000 [00:00<00:05, 1580.55it/s] 11%|#         | 1082/10000 [00:00<00:06, 1432.32it/s] 12%|#2        | 1229/10000 [00:00<00:06, 1423.47it/s] 14%|#3        | 1382/10000 [00:00<00:05, 1453.29it/s] 16%|#5        | 1555/10000 [00:00<00:05, 1532.87it/s] 17%|#7        | 1728/10000 [00:01<00:05, 1590.04it/s] 19%|#9        | 1902/10000 [00:01<00:04, 1632.07it/s] 21%|##        | 2078/10000 [00:01<00:04, 1667.82it/s] 23%|##2       | 2252/10000 [00:01<00:04, 1686.54it/s] 24%|##4       | 2422/10000 [00:01<00:04, 1683.74it/s] 26%|##5       | 2593/10000 [00:01<00:04, 1691.26it/s] 28%|##7       | 2764/10000 [00:01<00:04, 1694.89it/s] 29%|##9       | 2937/10000 [00:01<00:04, 1704.41it/s] 31%|###1      | 3111/10000 [00:01<00:04, 1714.63it/s] 33%|###2      | 3283/10000 [00:02<00:03, 1714.29it/s] 35%|###4      | 3455/10000 [00:02<00:03, 1712.11it/s] 36%|###6      | 3630/10000 [00:02<00:03, 1722.34it/s] 38%|###8      | 3803/10000 [00:02<00:03, 1697.92it/s] 40%|###9      | 3975/10000 [00:02<00:03, 1702.69it/s] 41%|####1     | 4147/10000 [00:02<00:03, 1704.93it/s] 43%|####3     | 4322/10000 [00:02<00:03, 1717.57it/s] 45%|####4     | 4494/10000 [00:02<00:03, 1686.40it/s] 47%|####6     | 4667/10000 [00:02<00:03, 1696.60it/s] 48%|####8     | 4837/10000 [00:02<00:03, 1682.09it/s] 50%|#####     | 5011/10000 [00:03<00:02, 1698.89it/s] 52%|#####1    | 5187/10000 [00:03<00:02, 1715.72it/s] 54%|#####3    | 5359/10000 [00:03<00:02, 1715.11it/s] 55%|#####5    | 5531/10000 [00:03<00:02, 1705.88it/s] 57%|#####7    | 5708/10000 [00:03<00:02, 1724.06it/s] 59%|#####8    | 5881/10000 [00:03<00:05, 768.90it/s]  61%|######    | 6058/10000 [00:04<00:04, 928.28it/s] 62%|######2   | 6232/10000 [00:04<00:03, 1077.84it/s] 64%|######3   | 6386/10000 [00:04<00:03, 1153.22it/s] 66%|######5   | 6558/10000 [00:04<00:02, 1280.54it/s] 67%|######7   | 6733/10000 [00:04<00:02, 1393.67it/s] 69%|######9   | 6903/10000 [00:04<00:02, 1471.60it/s] 71%|#######   | 7083/10000 [00:04<00:01, 1559.70it/s] 73%|#######2  | 7261/10000 [00:04<00:01, 1619.91it/s] 74%|#######4  | 7437/10000 [00:04<00:01, 1658.02it/s] 76%|#######6  | 7610/10000 [00:04<00:01, 1673.39it/s] 78%|#######7  | 7786/10000 [00:05<00:01, 1696.37it/s] 80%|#######9  | 7961/10000 [00:05<00:01, 1710.38it/s] 81%|########1 | 8135/10000 [00:05<00:01, 1706.80it/s] 83%|########3 | 8308/10000 [00:05<00:00, 1705.94it/s] 85%|########4 | 8483/10000 [00:05<00:00, 1716.68it/s] 87%|########6 | 8658/10000 [00:05<00:00, 1725.32it/s] 88%|########8 | 8832/10000 [00:05<00:00, 1729.24it/s] 90%|######### | 9007/10000 [00:05<00:00, 1734.98it/s] 92%|#########1| 9184/10000 [00:05<00:00, 1744.93it/s] 94%|#########3| 9359/10000 [00:05<00:00, 1740.69it/s] 95%|#########5| 9534/10000 [00:06<00:00, 1738.78it/s] 97%|#########7| 9708/10000 [00:06<00:00, 1737.41it/s] 99%|#########8| 9889/10000 [00:06<00:00, 1759.07it/s]100%|##########| 10000/10000 [00:06<00:00, 1581.81it/s]
+GALAXY_SOUNDS_BLACK_HOLES: 15,795
+GALAXY_SOUNDS_DARK_MATTER: 15,598
+GALAXY_SOUNDS_PLANETARY_RINGS: 8,125
+GALAXY_SOUNDS_SOLAR_FLAMES: 9,728
+GALAXY_SOUNDS_SOLAR_WINDS: 18,038
+MICROCHIP_CIRCLE: 14,752
+MICROCHIP_OVAL: 18,895
+MICROCHIP_RECTANGLE: -7,446
+MICROCHIP_SQUARE: 2,003
+MICROCHIP_TRIANGLE: 3,392
+OXYGEN_SHAKE_CHOCOLATE: 9,586
+OXYGEN_SHAKE_EVENING_BREATH: -360
+OXYGEN_SHAKE_GARLIC: 21,377
+OXYGEN_SHAKE_MINT: 5,355
+OXYGEN_SHAKE_MORNING_BREATH: 6,308
+PANEL_1X2: 0
+PANEL_1X4: 229
+PANEL_2X2: -2,001
+PANEL_2X4: 8,907
+PANEL_4X4: 6,736
+PEBBLES_L: -8,300
+PEBBLES_M: 6,952
+PEBBLES_S: 22,558
+PEBBLES_XL: 51,103
+PEBBLES_XS: 9,342
+ROBOT_DISHES: 31,384
+ROBOT_IRONING: 14,363
+ROBOT_LAUNDRY: 544
+ROBOT_MOPPING: 14,706
+ROBOT_VACUUMING: 15,028
+SLEEP_POD_COTTON: 27,042
+SLEEP_POD_LAMB_WOOL: -2,886
+SLEEP_POD_NYLON: 4,734
+SLEEP_POD_POLYESTER: 4,078
+SLEEP_POD_SUEDE: 10,095
+SNACKPACK_CHOCOLATE: 5,463
+SNACKPACK_PISTACHIO: 1,937
+SNACKPACK_RASPBERRY: 5,586
+SNACKPACK_STRAWBERRY: 4,664
+SNACKPACK_VANILLA: 2,131
+TRANSLATOR_ASTRO_BLACK: 5,268
+TRANSLATOR_ECLIPSE_CHARCOAL: 7,442
+TRANSLATOR_GRAPHITE_MIST: 1,654
+TRANSLATOR_SPACE_GRAY: 8,148
+TRANSLATOR_VOID_BLUE: 3,091
+UV_VISOR_AMBER: 6,867
+UV_VISOR_MAGENTA: 2,282
+UV_VISOR_ORANGE: 13,582
+UV_VISOR_RED: 3,585
+UV_VISOR_YELLOW: 16,827
+Total profit: 444,286
+
+Risk metrics (full trading period):
+  final_pnl: 444,286
+  sharpe_ratio: 0.0689
+  annualized_sharpe: 109.3993
+  sortino_ratio: 0.1022
+  max_drawdown_abs: 20,150
+  max_drawdown_pct: 0.5946
+  calmar_ratio: 22.0484
+  --- Inventory Metrics ---
+  GALAXY_SOUNDS_BLACK_HOLES: Mean Position = -1.75 | Mean Absolute Position =  5.73
+  GALAXY_SOUNDS_DARK_MATTER: Mean Position = -1.51 | Mean Absolute Position =  5.81
+  GALAXY_SOUNDS_PLANETARY_RINGS: Mean Position = -0.30 | Mean Absolute Position =  5.96
+  PANEL_2X2: Mean Position = -10.00 | Mean Absolute Position = 10.00
+  PANEL_2X4: Mean Position = 10.00 | Mean Absolute Position = 10.00
+  ROBOT_IRONING: Mean Position =  0.36 | Mean Absolute Position =  7.58
+  ROBOT_MOPPING: Mean Position = -3.37 | Mean Absolute Position =  8.74
+  TRANSLATOR_SPACE_GRAY: Mean Position =  4.68 | Mean Absolute Position =  9.15
+  TRANSLATOR_VOID_BLUE: Mean Position =  2.50 | Mean Absolute Position =  9.61
+  PANEL_1X4: Mean Position =  0.37 | Mean Absolute Position =  5.98
+  MICROCHIP_OVAL: Mean Position = -9.68 | Mean Absolute Position =  9.68
+  MICROCHIP_CIRCLE: Mean Position =  5.64 | Mean Absolute Position =  5.64
+  MICROCHIP_RECTANGLE: Mean Position = -1.99 | Mean Absolute Position =  1.99
+  MICROCHIP_SQUARE: Mean Position =  2.10 | Mean Absolute Position =  2.10
+  MICROCHIP_TRIANGLE: Mean Position = -4.24 | Mean Absolute Position =  4.24
+  OXYGEN_SHAKE_EVENING_BREATH: Mean Position = -9.78 | Mean Absolute Position =  9.78
+  SLEEP_POD_COTTON: Mean Position = -1.65 | Mean Absolute Position =  5.00
+  SLEEP_POD_LAMB_WOOL: Mean Position =  2.71 | Mean Absolute Position =  5.00
+  SLEEP_POD_NYLON: Mean Position =  2.70 | Mean Absolute Position =  6.59
+  SLEEP_POD_POLYESTER: Mean Position =  2.70 | Mean Absolute Position =  6.59
+  SLEEP_POD_SUEDE: Mean Position =  4.40 | Mean Absolute Position =  6.90
+  SNACKPACK_CHOCOLATE: Mean Position =  2.70 | Mean Absolute Position =  6.59
+  SNACKPACK_PISTACHIO: Mean Position =  2.70 | Mean Absolute Position =  6.59
+  SNACKPACK_RASPBERRY: Mean Position =  2.70 | Mean Absolute Position =  6.59
+  SNACKPACK_STRAWBERRY: Mean Position =  0.30 | Mean Absolute Position =  3.35
+  SNACKPACK_VANILLA: Mean Position =  0.24 | Mean Absolute Position =  2.68
+  GALAXY_SOUNDS_SOLAR_FLAMES: Mean Position =  2.28 | Mean Absolute Position =  7.40
+  GALAXY_SOUNDS_SOLAR_WINDS: Mean Position = -0.41 | Mean Absolute Position =  6.72
+  OXYGEN_SHAKE_CHOCOLATE: Mean Position =  6.71 | Mean Absolute Position =  6.71
+  OXYGEN_SHAKE_GARLIC: Mean Position =  9.87 | Mean Absolute Position =  9.87
+  OXYGEN_SHAKE_MINT: Mean Position = -3.63 | Mean Absolute Position =  3.63
+  OXYGEN_SHAKE_MORNING_BREATH: Mean Position = -3.79 | Mean Absolute Position =  3.79
+  PANEL_1X2: Mean Position =  0.00 | Mean Absolute Position =  0.00
+  PANEL_4X4: Mean Position = -0.69 | Mean Absolute Position =  3.46
+  ROBOT_DISHES: Mean Position = -0.48 | Mean Absolute Position =  7.84
+  ROBOT_LAUNDRY: Mean Position =  2.16 | Mean Absolute Position =  4.46
+  ROBOT_VACUUMING: Mean Position =  0.14 | Mean Absolute Position =  7.26
+  TRANSLATOR_ASTRO_BLACK: Mean Position = -2.16 | Mean Absolute Position =  2.28
+  TRANSLATOR_ECLIPSE_CHARCOAL: Mean Position = -0.12 | Mean Absolute Position =  2.57
+  TRANSLATOR_GRAPHITE_MIST: Mean Position =  0.27 | Mean Absolute Position =  2.30
+  UV_VISOR_AMBER: Mean Position = -4.38 | Mean Absolute Position =  4.38
+  UV_VISOR_MAGENTA: Mean Position =  6.29 | Mean Absolute Position =  6.29
+  UV_VISOR_ORANGE: Mean Position = -4.15 | Mean Absolute Position =  4.15
+  UV_VISOR_RED: Mean Position =  4.61 | Mean Absolute Position =  4.61
+  UV_VISOR_YELLOW: Mean Position = -5.58 | Mean Absolute Position =  5.58
+  PEBBLES_L: Mean Position = -0.58 | Mean Absolute Position =  5.29
+  PEBBLES_M: Mean Position = -2.82 | Mean Absolute Position =  6.02
+  PEBBLES_S: Mean Position = -0.58 | Mean Absolute Position =  5.29
+  PEBBLES_XL: Mean Position = -1.62 | Mean Absolute Position =  7.88
+  PEBBLES_XS: Mean Position = -0.24 | Mean Absolute Position =  4.39
+
+Successfully saved backtest results to run_5-4.log

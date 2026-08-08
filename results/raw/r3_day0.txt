@@ -1,0 +1,37 @@
+.venv/bin/python -m prosperity4bt traders/round3_trader.py 3-0 --data ./data --out ./run_3-0.log
+Backtesting /Users/matteograssini/imc-prosperity-4/traders/round3_trader.py on round 3 day 0
+  0%|          | 0/10000 [00:00<?, ?it/s]  6%|5         | 587/10000 [00:00<00:01, 5869.17it/s] 12%|#1        | 1174/10000 [00:00<00:01, 5762.67it/s] 18%|#7        | 1754/10000 [00:00<00:01, 5764.87it/s] 23%|##3       | 2341/10000 [00:00<00:01, 5804.53it/s] 29%|##9       | 2922/10000 [00:00<00:01, 4318.13it/s] 35%|###4      | 3492/10000 [00:00<00:01, 4697.84it/s] 41%|####      | 4077/10000 [00:00<00:01, 5023.38it/s] 47%|####6     | 4655/10000 [00:00<00:01, 5240.83it/s] 53%|#####2    | 5251/10000 [00:01<00:00, 5449.43it/s] 58%|#####8    | 5831/10000 [00:01<00:00, 5551.95it/s] 64%|######4   | 6411/10000 [00:01<00:00, 5624.70it/s] 70%|######9   | 6999/10000 [00:01<00:00, 5698.72it/s] 76%|#######5  | 7576/10000 [00:01<00:00, 5718.96it/s] 82%|########1 | 8162/10000 [00:01<00:00, 5760.94it/s] 87%|########7 | 8742/10000 [00:01<00:00, 5768.95it/s] 93%|#########3| 9322/10000 [00:01<00:00, 5745.25it/s] 99%|#########9| 9908/10000 [00:01<00:00, 5779.33it/s]100%|##########| 10000/10000 [00:01<00:00, 5499.45it/s]
+HYDROGEL_PACK: 17,289
+VELVETFRUIT_EXTRACT: 13,473
+VEV_4000: 3,039
+VEV_4500: 0
+VEV_5000: 0
+VEV_5100: 0
+VEV_5200: 60
+VEV_5300: 18
+VEV_5400: 0
+VEV_5500: 368
+VEV_6000: 0
+VEV_6500: 0
+Total profit: 34,247
+
+Risk metrics (full trading period):
+  final_pnl: 34,247
+  sharpe_ratio: 0.0233
+  annualized_sharpe: 36.9116
+  sortino_ratio: 0.0332
+  max_drawdown_abs: 7,658
+  max_drawdown_pct: 1.3500
+  calmar_ratio: 4.4721
+  --- Inventory Metrics ---
+  VELVETFRUIT_EXTRACT: Mean Position = 59.76 | Mean Absolute Position = 61.29
+  VEV_5400: Mean Position =  0.00 | Mean Absolute Position =  0.00
+  VEV_5500: Mean Position = -167.45 | Mean Absolute Position = 169.10
+  VEV_6000: Mean Position =  0.00 | Mean Absolute Position =  0.00
+  VEV_6500: Mean Position =  0.00 | Mean Absolute Position =  0.00
+  HYDROGEL_PACK: Mean Position = 35.35 | Mean Absolute Position = 40.23
+  VEV_4000: Mean Position =  5.30 | Mean Absolute Position = 11.73
+  VEV_5300: Mean Position =  0.76 | Mean Absolute Position =  0.76
+  VEV_5200: Mean Position = 18.08 | Mean Absolute Position = 18.08
+
+Successfully saved backtest results to run_3-0.log

@@ -1,0 +1,40 @@
+.venv/bin/python -m prosperity4bt traders/round4_trader.py 4-3 --data ./data --out ./run_4-3.log
+Backtesting /Users/matteograssini/imc-prosperity-4/traders/round4_trader.py on round 4 day 3
+  0%|          | 0/10000 [00:00<?, ?it/s]  4%|3         | 363/10000 [00:00<00:02, 3626.09it/s]  7%|7         | 726/10000 [00:00<00:02, 3593.63it/s] 11%|#         | 1086/10000 [00:00<00:02, 3515.23it/s] 14%|#4        | 1438/10000 [00:00<00:02, 3492.57it/s] 18%|#7        | 1789/10000 [00:00<00:02, 3498.45it/s] 21%|##1       | 2139/10000 [00:00<00:02, 3497.00it/s] 25%|##4       | 2493/10000 [00:00<00:02, 3507.85it/s] 28%|##8       | 2844/10000 [00:00<00:02, 2746.65it/s] 32%|###1      | 3194/10000 [00:00<00:02, 2941.70it/s] 35%|###5      | 3545/10000 [00:01<00:02, 3095.20it/s] 39%|###8      | 3888/10000 [00:01<00:01, 3188.80it/s] 42%|####2     | 4239/10000 [00:01<00:01, 3277.81it/s] 46%|####5     | 4578/10000 [00:01<00:01, 3308.48it/s] 49%|####9     | 4927/10000 [00:01<00:01, 3360.98it/s] 53%|#####2    | 5272/10000 [00:01<00:01, 3385.67it/s] 56%|#####6    | 5619/10000 [00:01<00:01, 3409.14it/s] 60%|#####9    | 5969/10000 [00:01<00:01, 3435.63it/s] 63%|######3   | 6316/10000 [00:01<00:01, 3441.80it/s] 67%|######6   | 6662/10000 [00:01<00:00, 3434.32it/s] 70%|#######   | 7008/10000 [00:02<00:00, 3440.28it/s] 74%|#######3  | 7353/10000 [00:02<00:00, 3412.25it/s] 77%|#######6  | 7695/10000 [00:02<00:00, 3384.36it/s] 80%|########  | 8044/10000 [00:02<00:00, 3413.21it/s] 84%|########3 | 8390/10000 [00:02<00:00, 3424.24it/s] 87%|########7 | 8740/10000 [00:02<00:00, 3444.84it/s] 91%|######### | 9091/10000 [00:02<00:00, 3463.70it/s] 94%|#########4| 9438/10000 [00:02<00:00, 3461.87it/s] 98%|#########7| 9785/10000 [00:02<00:00, 3456.29it/s]100%|##########| 10000/10000 [00:02<00:00, 3366.46it/s]
+HYDROGEL_PACK: 16,904
+VELVETFRUIT_EXTRACT: 2,434
+VEV_4000: 1,192
+VEV_4500: 0
+VEV_5000: 17,889
+VEV_5100: 17,380
+VEV_5200: 14,394
+VEV_5300: 9,390
+VEV_5400: 4,267
+VEV_5500: 1,447
+VEV_6000: 0
+VEV_6500: 0
+Total profit: 85,297
+
+Risk metrics (full trading period):
+  final_pnl: 85,297
+  sharpe_ratio: 0.0089
+  annualized_sharpe: 14.1145
+  sortino_ratio: 0.0127
+  max_drawdown_abs: 79,599
+  max_drawdown_pct: 10.6142
+  calmar_ratio: 1.0716
+  --- Inventory Metrics ---
+  VEV_5000: Mean Position = -167.96 | Mean Absolute Position = 167.96
+  VEV_5100: Mean Position = -155.82 | Mean Absolute Position = 155.82
+  VEV_5200: Mean Position = -251.19 | Mean Absolute Position = 251.19
+  VEV_5300: Mean Position = -277.66 | Mean Absolute Position = 277.66
+  VEV_5400: Mean Position = -286.22 | Mean Absolute Position = 286.22
+  VEV_5500: Mean Position = -282.56 | Mean Absolute Position = 282.56
+  VEV_4000: Mean Position =  5.20 | Mean Absolute Position =  7.60
+  HYDROGEL_PACK: Mean Position = 75.68 | Mean Absolute Position = 86.17
+  VELVETFRUIT_EXTRACT: Mean Position = -61.27 | Mean Absolute Position = 61.27
+  VEV_6000: Mean Position =  0.00 | Mean Absolute Position =  0.00
+  VEV_6500: Mean Position =  0.00 | Mean Absolute Position =  0.00
+  VEV_4500: Mean Position =  0.00 | Mean Absolute Position =  0.00
+
+Successfully saved backtest results to run_4-3.log

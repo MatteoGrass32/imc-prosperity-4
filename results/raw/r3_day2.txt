@@ -1,0 +1,38 @@
+.venv/bin/python -m prosperity4bt traders/round3_trader.py 3-2 --data ./data --out ./run_3-2.log
+Backtesting /Users/matteograssini/imc-prosperity-4/traders/round3_trader.py on round 3 day 2
+  0%|          | 0/10000 [00:00<?, ?it/s]  6%|5         | 579/10000 [00:00<00:01, 5789.01it/s] 12%|#1        | 1159/10000 [00:00<00:01, 5790.78it/s] 17%|#7        | 1746/10000 [00:00<00:01, 5824.44it/s] 23%|##3       | 2329/10000 [00:00<00:01, 5799.81it/s] 29%|##9       | 2909/10000 [00:00<00:01, 4459.62it/s] 35%|###5      | 3502/10000 [00:00<00:01, 4874.26it/s] 41%|####      | 4084/10000 [00:00<00:01, 5144.46it/s] 47%|####6     | 4671/10000 [00:00<00:00, 5354.69it/s] 53%|#####2    | 5251/10000 [00:00<00:00, 5482.97it/s] 58%|#####8    | 5826/10000 [00:01<00:00, 5560.76it/s] 64%|######3   | 6398/10000 [00:01<00:00, 5605.71it/s] 70%|######9   | 6983/10000 [00:01<00:00, 5676.50it/s] 76%|#######5  | 7570/10000 [00:01<00:00, 5732.77it/s] 82%|########1 | 8163/10000 [00:01<00:00, 5790.07it/s] 87%|########7 | 8745/10000 [00:01<00:00, 5780.76it/s] 93%|#########3| 9338/10000 [00:01<00:00, 5822.56it/s] 99%|#########9| 9934/10000 [00:01<00:00, 5863.15it/s]100%|##########| 10000/10000 [00:01<00:00, 5559.75it/s]
+HYDROGEL_PACK: 16,605
+VELVETFRUIT_EXTRACT: 12,556
+VEV_4000: 2,437
+VEV_4500: 0
+VEV_5000: 0
+VEV_5100: 5,256
+VEV_5200: 6,199
+VEV_5300: 70
+VEV_5400: 0
+VEV_5500: 122
+VEV_6000: 0
+VEV_6500: 0
+Total profit: 43,245
+
+Risk metrics (full trading period):
+  final_pnl: 43,245
+  sharpe_ratio: 0.0122
+  annualized_sharpe: 19.3987
+  sortino_ratio: 0.0174
+  max_drawdown_abs: 22,610
+  max_drawdown_pct: 4.0938
+  calmar_ratio: 1.9127
+  --- Inventory Metrics ---
+  VELVETFRUIT_EXTRACT: Mean Position = 100.75 | Mean Absolute Position = 105.30
+  VEV_4000: Mean Position =  5.09 | Mean Absolute Position =  5.41
+  HYDROGEL_PACK: Mean Position = 90.25 | Mean Absolute Position = 91.08
+  VEV_5100: Mean Position = 61.62 | Mean Absolute Position = 61.62
+  VEV_5200: Mean Position = 99.47 | Mean Absolute Position = 99.47
+  VEV_5500: Mean Position = -197.17 | Mean Absolute Position = 202.76
+  VEV_5400: Mean Position =  0.00 | Mean Absolute Position =  0.00
+  VEV_6000: Mean Position =  0.00 | Mean Absolute Position =  0.00
+  VEV_6500: Mean Position =  0.00 | Mean Absolute Position =  0.00
+  VEV_5300: Mean Position =  5.33 | Mean Absolute Position =  5.33
+
+Successfully saved backtest results to run_3-2.log

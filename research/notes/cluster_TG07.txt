@@ -1,0 +1,274 @@
+TG07: TRANSLATORS
+============================================================
+STATISTICHE BASE
+============================================================
+
+TRANSLATOR_ASTRO_BLACK:
+  Prezzo medio:        9385.22
+  Min / Max:           8971.00 / 9828.00
+  Return totale:       -3.61%
+  Autocorr lag=1:      -0.0117
+  Autocorr lag=5:      -0.0026
+  Autocorr lag=10:     -0.0094
+
+TRANSLATOR_ECLIPSE_CHARCOAL:
+  Prezzo medio:        9813.74
+  Min / Max:           9482.67 / 10125.67
+  Return totale:       -0.89%
+  Autocorr lag=1:      -0.0014
+  Autocorr lag=5:      -0.0162
+  Autocorr lag=10:     -0.0117
+
+TRANSLATOR_GRAPHITE_MIST:
+  Prezzo medio:        10084.64
+  Min / Max:           9793.00 / 10517.50
+  Return totale:       -0.69%
+  Autocorr lag=1:      -0.0040
+  Autocorr lag=5:      0.0032
+  Autocorr lag=10:     0.0014
+
+TRANSLATOR_SPACE_GRAY:
+  Prezzo medio:        9431.90
+  Min / Max:           9029.50 / 9931.83
+  Return totale:       -5.27%
+  Autocorr lag=1:      0.0053
+  Autocorr lag=5:      -0.0156
+  Autocorr lag=10:     0.0003
+
+TRANSLATOR_VOID_BLUE:
+  Prezzo medio:        10858.58
+  Min / Max:           10446.67 / 11229.33
+  Return totale:       4.81%
+  Autocorr lag=1:      -0.0022
+  Autocorr lag=5:      0.0055
+  Autocorr lag=10:     0.0102
+
+============================================================
+CORRELAZIONE (returns)
+============================================================
+                             TRANSLATOR_ASTRO_BLACK  TRANSLATOR_ECLIPSE_CHARCOAL  TRANSLATOR_GRAPHITE_MIST  TRANSLATOR_SPACE_GRAY  TRANSLATOR_VOID_BLUE
+TRANSLATOR_ASTRO_BLACK                        1.000                        0.012                    -0.009                  0.011                 0.007
+TRANSLATOR_ECLIPSE_CHARCOAL                   0.012                        1.000                     0.009                  0.018                -0.008
+TRANSLATOR_GRAPHITE_MIST                     -0.009                        0.009                     1.000                 -0.003                 0.021
+TRANSLATOR_SPACE_GRAY                         0.011                        0.018                    -0.003                  1.000                 0.007
+TRANSLATOR_VOID_BLUE                          0.007                       -0.008                     0.021                  0.007                 1.000
+
+============================================================
+ADF TEST — p<0.05: mean reverting | p>0.05: trend/random walk
+============================================================
+  TRANSLATOR_ASTRO_BLACK        : stat=  -2.126, p=0.2340  ❌ trend/random walk
+  TRANSLATOR_ECLIPSE_CHARCOAL   : stat=  -2.103, p=0.2433  ❌ trend/random walk
+  TRANSLATOR_GRAPHITE_MIST      : stat=  -1.677, p=0.4432  ❌ trend/random walk
+  TRANSLATOR_SPACE_GRAY         : stat=  -2.723, p=0.0702  ❌ trend/random walk
+  TRANSLATOR_VOID_BLUE          : stat=  -1.740, p=0.4106  ❌ trend/random walk
+
+============================================================
+TREND (regressione lineare sul prezzo)
+============================================================
+  TRANSLATOR_ASTRO_BLACK        : slope=-0.053247, R²=0.6370, p=0.0000  📉 down
+  TRANSLATOR_ECLIPSE_CHARCOAL   : slope=-0.022242, R²=0.2035, p=0.0000  📉 down
+  TRANSLATOR_GRAPHITE_MIST      : slope=-0.042043, R²=0.4867, p=0.0000  📉 down
+  TRANSLATOR_SPACE_GRAY         : slope=-0.037385, R²=0.4464, p=0.0000  📉 down
+  TRANSLATOR_VOID_BLUE          : slope=+0.045328, R²=0.5478, p=0.0000  📈 up
+
+============================================================
+COINTEGRAZIONE (p<0.05 = coppia cointegrata)
+============================================================
+      TRANSLATOR_ASTRO_BLACK         / TRANSLATOR_ECLIPSE_CHARCOAL   : p=0.3721
+  ✅ TRANSLATOR_ASTRO_BLACK         / TRANSLATOR_GRAPHITE_MIST      : p=0.0499
+      TRANSLATOR_ASTRO_BLACK         / TRANSLATOR_SPACE_GRAY         : p=0.3627
+      TRANSLATOR_ASTRO_BLACK         / TRANSLATOR_VOID_BLUE          : p=0.5097
+      TRANSLATOR_ECLIPSE_CHARCOAL    / TRANSLATOR_GRAPHITE_MIST      : p=0.1327
+      TRANSLATOR_ECLIPSE_CHARCOAL    / TRANSLATOR_SPACE_GRAY         : p=0.4294
+      TRANSLATOR_ECLIPSE_CHARCOAL    / TRANSLATOR_VOID_BLUE          : p=0.3974
+      TRANSLATOR_GRAPHITE_MIST       / TRANSLATOR_SPACE_GRAY         : p=0.2872
+      TRANSLATOR_GRAPHITE_MIST       / TRANSLATOR_VOID_BLUE          : p=0.4091
+      TRANSLATOR_SPACE_GRAY          / TRANSLATOR_VOID_BLUE          : p=0.1448
+
+============================================================
+Z-SCORE ROLLING (window=200) — % tempo fuori ±1.5
+============================================================
+  TRANSLATOR_ASTRO_BLACK        : z>+1.5: 14.9%  z<-1.5: 17.5%  z_mean=-0.105  z_std=1.420
+  TRANSLATOR_ECLIPSE_CHARCOAL   : z>+1.5: 17.0%  z<-1.5: 18.1%  z_mean=-0.003  z_std=1.409
+  TRANSLATOR_GRAPHITE_MIST      : z>+1.5: 18.2%  z<-1.5: 17.4%  z_mean=0.018  z_std=1.424
+  TRANSLATOR_SPACE_GRAY         : z>+1.5: 13.7%  z<-1.5: 20.2%  z_mean=-0.200  z_std=1.405
+  TRANSLATOR_VOID_BLUE          : z>+1.5: 17.7%  z<-1.5: 15.0%  z_mean=0.129  z_std=1.391
+
+============================================================
+SLOPE PER GIORNO
+============================================================
+
+TRANSLATOR_ASTRO_BLACK:
+  Day 1: slope=-0.137677, R²=0.8695  📉
+  Day 2: slope=+0.019917, R²=0.0602  📈
+  Day 3: slope=-0.027208, R²=0.0344  📉
+
+TRANSLATOR_ECLIPSE_CHARCOAL:
+  Day 1: slope=-0.030576, R²=0.0998  📉
+  Day 2: slope=-0.005728, R²=0.0043  📉
+  Day 3: slope=+0.045091, R²=0.1522  📈
+
+TRANSLATOR_GRAPHITE_MIST:
+  Day 1: slope=-0.046453, R²=0.1012  📉
+  Day 2: slope=+0.006653, R²=0.0087  📈
+  Day 3: slope=+0.058536, R²=0.2820  📈
+
+TRANSLATOR_SPACE_GRAY:
+  Day 1: slope=-0.144656, R²=0.6704  📉
+  Day 2: slope=-0.067510, R²=0.5987  📉
+  Day 3: slope=+0.089374, R²=0.6309  📈
+
+TRANSLATOR_VOID_BLUE:
+  Day 1: slope=-0.017273, R²=0.0262  📉
+  Day 2: slope=+0.067932, R²=0.2268  📈
+  Day 3: slope=+0.004148, R²=0.0020  📈
+
+============================================================
+BID/ASK SPREAD MEDIO
+============================================================
+  TRANSLATOR_ASTRO_BLACK        : spread medio=8.37, max=10.00
+  TRANSLATOR_ECLIPSE_CHARCOAL   : spread medio=8.70, max=10.00
+  TRANSLATOR_GRAPHITE_MIST      : spread medio=8.91, max=11.00
+  TRANSLATOR_SPACE_GRAY         : spread medio=8.40, max=10.00
+  TRANSLATOR_VOID_BLUE          : spread medio=9.52, max=11.00
+
+============================================================
+VARIAZIONE MEDIA PER STEP (tick implicito)
+============================================================
+  TRANSLATOR_ASTRO_BLACK        : mean=4.3386, median=3.6667, p95=10.5167
+  TRANSLATOR_ECLIPSE_CHARCOAL   : mean=4.5278, median=3.8333, p95=11.1667
+  TRANSLATOR_GRAPHITE_MIST      : mean=4.6254, median=3.8333, p95=11.3333
+  TRANSLATOR_SPACE_GRAY         : mean=4.3681, median=3.6667, p95=10.6667
+  TRANSLATOR_VOID_BLUE          : mean=5.0237, median=4.1667, p95=12.5000
+
+Nessun driver OLS visibile (niente MICROCHIP o componenti equivalenti) — lo slope following è l'unica strada. Spread 8-10 tick, simile a OXYGEN_SHAKE. La cointegrazione ASTRO_BLACK/GRAPHITE_MIST a p=0.0499 è borderline — troppo instabile per pairs trading.
+
+Slope per giorno — sintesi
+Prodotto	Day 1	Day 2	Day 3	Leggibilità
+ASTRO_BLACK	📉 R²=0.87	📈 R²=0.06	📉 R²=0.03	Solo Day1 forte, poi rumore
+SPACE_GRAY	📉 R²=0.67	📉 R²=0.60	📈 R²=0.63	Chiarissima inversione Day3
+VOID_BLUE	📉 R²=0.03	📈 R²=0.23	📈 R²=0.002	Debole ma overall up
+ECLIPSE_CHARCOAL	📉 R²=0.10	📉 R²=0.004	📈 R²=0.15	Troppo rumoroso — skip
+GRAPHITE_MIST	📉 R²=0.10	📈 R²=0.009	📈 R²=0.28	Debole — skip
+
+============================================================
+CORRELAZIONE RETURNS — TRANSLATOR vs altri cluster
+============================================================
+
+TRANSLATOR_ASTRO_BLACK  → nessuna correlazione significativa (|r|>0.15)
+
+TRANSLATOR_ECLIPSE_CHARCOAL  → nessuna correlazione significativa (|r|>0.15)
+
+TRANSLATOR_GRAPHITE_MIST  → nessuna correlazione significativa (|r|>0.15)
+
+TRANSLATOR_SPACE_GRAY  → nessuna correlazione significativa (|r|>0.15)
+
+TRANSLATOR_VOID_BLUE  → nessuna correlazione significativa (|r|>0.15)
+
+============================================================
+OLS FIT — TRANSLATOR ~ MICROCHIP (R² e coefficienti)
+============================================================
+
+TRANSLATOR_ASTRO_BLACK  R²=0.7263  alpha=16179.54
+    MICROCHIP_CIRCLE: -0.405442
+    MICROCHIP_OVAL: -0.086163
+    MICROCHIP_RECTANGLE: -0.103563
+    MICROCHIP_SQUARE: -0.271202
+    MICROCHIP_TRIANGLE: +0.231029
+
+TRANSLATOR_ECLIPSE_CHARCOAL  R²=0.5573  alpha=9860.81
+    MICROCHIP_CIRCLE: +0.201655
+    MICROCHIP_OVAL: -0.045372
+    MICROCHIP_RECTANGLE: +0.155717
+    MICROCHIP_SQUARE: -0.220054
+    MICROCHIP_TRIANGLE: +0.010077
+
+TRANSLATOR_GRAPHITE_MIST  R²=0.7287  alpha=13728.37
+    MICROCHIP_CIRCLE: -0.212183
+    MICROCHIP_OVAL: -0.234386
+    MICROCHIP_RECTANGLE: +0.257359
+    MICROCHIP_SQUARE: -0.247237
+    MICROCHIP_TRIANGLE: +0.138591
+
+TRANSLATOR_SPACE_GRAY  R²=0.5760  alpha=15096.53
+    MICROCHIP_CIRCLE: -0.279272
+    MICROCHIP_OVAL: +0.130463
+    MICROCHIP_RECTANGLE: +0.054223
+    MICROCHIP_SQUARE: -0.133337
+    MICROCHIP_TRIANGLE: -0.291039
+
+TRANSLATOR_VOID_BLUE  R²=0.7361  alpha=17267.87
+    MICROCHIP_CIRCLE: -0.003304
+    MICROCHIP_OVAL: -0.335509
+    MICROCHIP_RECTANGLE: -0.390470
+    MICROCHIP_SQUARE: -0.137000
+    MICROCHIP_TRIANGLE: +0.169075
+
+============================================================
+CORRELAZIONE LIVELLI — TRANSLATOR vs MICROCHIP e ROBOT
+============================================================
+
+TRANSLATOR_ASTRO_BLACK
+  *** MICROCHIP_CIRCLE                               r=-0.6393
+  *** MICROCHIP_OVAL                                 r=+0.6618
+  *** MICROCHIP_RECTANGLE                            r=+0.6222
+  *** MICROCHIP_SQUARE                               r=-0.8030
+  *** MICROCHIP_TRIANGLE                             r=+0.6256
+  *** ROBOT_DISHES                                   r=-0.4793
+  *** ROBOT_IRONING                                  r=+0.6747
+  *** ROBOT_LAUNDRY                                  r=+0.3195
+  *** ROBOT_MOPPING                                  r=-0.7027
+  *** ROBOT_VACUUMING                                r=+0.6276
+
+TRANSLATOR_ECLIPSE_CHARCOAL
+  *** MICROCHIP_CIRCLE                               r=-0.3112
+  *** MICROCHIP_OVAL                                 r=+0.5030
+  *** MICROCHIP_RECTANGLE                            r=+0.5383
+  *** MICROCHIP_SQUARE                               r=-0.7226
+  *** MICROCHIP_TRIANGLE                             r=+0.4286
+  *** ROBOT_IRONING                                  r=+0.5412
+  *** ROBOT_MOPPING                                  r=-0.5103
+
+TRANSLATOR_GRAPHITE_MIST
+  *** MICROCHIP_CIRCLE                               r=-0.6081
+  *** MICROCHIP_OVAL                                 r=+0.5768
+  *** MICROCHIP_RECTANGLE                            r=+0.7133
+  *** MICROCHIP_SQUARE                               r=-0.7893
+  *** MICROCHIP_TRIANGLE                             r=+0.5213
+  *** ROBOT_DISHES                                   r=-0.4832
+  *** ROBOT_IRONING                                  r=+0.7513
+  *** ROBOT_MOPPING                                  r=-0.7484
+  *** ROBOT_VACUUMING                                r=+0.3663
+
+TRANSLATOR_SPACE_GRAY
+  *** MICROCHIP_CIRCLE                               r=-0.6336
+  *** MICROCHIP_OVAL                                 r=+0.6163
+  *** MICROCHIP_RECTANGLE                            r=+0.6371
+  *** MICROCHIP_SQUARE                               r=-0.6377
+  *** MICROCHIP_TRIANGLE                             r=+0.3137
+  *** ROBOT_IRONING                                  r=+0.6789
+  *** ROBOT_MOPPING                                  r=-0.7450
+  *** ROBOT_VACUUMING                                r=+0.7450
+
+TRANSLATOR_VOID_BLUE
+  *** MICROCHIP_CIRCLE                               r=+0.6367
+  *** MICROCHIP_OVAL                                 r=-0.7600
+  *** MICROCHIP_RECTANGLE                            r=-0.7776
+  *** MICROCHIP_SQUARE                               r=+0.4638
+  *** MICROCHIP_TRIANGLE                             r=-0.4552
+  *** ROBOT_IRONING                                  r=-0.8193
+  *** ROBOT_MOPPING                                  r=+0.7230
+  *** ROBOT_VACUUMING                                r=-0.5342
+
+============================================================
+SLOPE ROLLING SPACE_GRAY — prima vs seconda metà per giorno
+============================================================
+  Day 1 | prima metà=-0.25197 | seconda metà=0.03876 | inversione step ~1713
+  Day 2 | prima metà=-0.05570 | seconda metà=-0.05394 | inversione step ~1667
+  Day 3 | prima metà=-0.05827 | seconda metà=0.10256 | inversione step ~1666
+
+TRANSLATOR_ASTRO_BLACK: std_err=100.75
+TRANSLATOR_ECLIPSE_CHARCOAL: std_err=94.69
+TRANSLATOR_GRAPHITE_MIST: std_err=90.61
+TRANSLATOR_SPACE_GRAY: std_err=105.19
+TRANSLATOR_VOID_BLUE: std_err=90.82

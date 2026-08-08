@@ -1,0 +1,28 @@
+═══════════════════════════════════════════════════════
+TG04 - Purification Pebbles
+═══════════════════════════════════════════════════════
+  Ratio prezzi (stabile = arbitraggio strutturale):
+    XS          /S             mean=0.8281  std=0.0410  cv=4.96%
+    S           /M             mean=0.8714  std=0.0472  cv=5.42%
+    M           /L             mean=1.0101  std=0.0484  cv=4.79%
+    L           /XL            mean=0.7742  std=0.0733  cv=9.47%
+  FFT — periodo dominante nei prezzi:
+    XS            periodo=10000 step  forza=15.1%
+    S             periodo=10000 step  forza=9.5%
+
+XS            periodo=  10000  forza=15.1%  ampiezza=969  ADF_p=0.5537
+S             periodo=  10000  forza=9.5%  ampiezza=653  ADF_p=0.3756
+M             periodo=  10000  forza=9.8%  ampiezza=594  ADF_p=0.3558
+L             periodo=  10000  forza=16.5%  ampiezza=586  ADF_p=0.5455
+XL            periodo=  10000  forza=15.0%  ampiezza=1536  ADF_p=0.5823
+
+Correlazione:
+XL ha correlazione NEGATIVA di -O.5 con TUTTI gli altri titoli del cluster
+
+Day 2  corr_XL_vs_avg=-1.000  divergenza_max=+5194  divergenza_min=-1015  std=1792
+Day 3  corr_XL_vs_avg=-1.000  divergenza_max=+6361  divergenza_min=+2409  std=782
+Day 4  corr_XL_vs_avg=-1.000  divergenza_max=+9050  divergenza_min=+2399  std=1805
+
+Day 2  spread_mean=+1937  max=+5194@t=8394  min=-1015@t=1247  inizio=+0  fine=+4593
+Day 3  spread_mean=+4328  max=+6361@t=4961  min=+2409@t=9748  inizio=+4536  fine=+2596
+Day 4  spread_mean=+5831  max=+9050@t=7693  min=+2399@t=620  inizio=+2568  fine=+7585

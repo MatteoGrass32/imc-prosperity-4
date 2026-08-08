@@ -1,0 +1,152 @@
+TG09: OXIGEN_SHAKE
+
+============================================================
+STATISTICHE BASE
+============================================================
+
+OXYGEN_SHAKE_CHOCOLATE:
+  Prezzo medio:        9556.88
+  Min [/](https://file+.vscode-resource.vscode-cdn.net/) Max:           9104.33 [/](https://file+.vscode-resource.vscode-cdn.net/) 10057.00
+  Return totale:       2.51%
+  Autocorr lag=1:      -0.0971
+  Autocorr lag=5:      0.0152
+  Autocorr lag=10:     0.0082
+
+OXYGEN_SHAKE_EVENING_BREATH:
+  Prezzo medio:        9271.90
+  Min [/](https://file+.vscode-resource.vscode-cdn.net/) Max:           8815.67 [/](https://file+.vscode-resource.vscode-cdn.net/) 9766.67
+  Return totale:       -2.08%
+  Autocorr lag=1:      -0.1243
+  Autocorr lag=5:      0.0064
+  Autocorr lag=10:     -0.0076
+
+OXYGEN_SHAKE_GARLIC:
+  Prezzo medio:        11925.64
+  Min [/](https://file+.vscode-resource.vscode-cdn.net/) Max:           10950.17 [/](https://file+.vscode-resource.vscode-cdn.net/) 12717.83
+  Return totale:       11.55%
+  Autocorr lag=1:      0.0016
+  Autocorr lag=5:      -0.0062
+  Autocorr lag=10:     0.0002
+
+OXYGEN_SHAKE_MINT:
+  Prezzo medio:        9838.39
+  Min [/](https://file+.vscode-resource.vscode-cdn.net/) Max:           9400.83 [/](https://file+.vscode-resource.vscode-cdn.net/) 10152.50
+  Return totale:       0.52%
+  Autocorr lag=1:      -0.0121
+  Autocorr lag=5:      0.0043
+  Autocorr lag=10:     0.0016
+
+OXYGEN_SHAKE_MORNING_BREATH:
+  Prezzo medio:        10000.45
+  Min [/](https://file+.vscode-resource.vscode-cdn.net/) Max:           9513.33 [/](https://file+.vscode-resource.vscode-cdn.net/) 10572.17
+  Return totale:       -1.47%
+  Autocorr lag=1:      0.0064
+  Autocorr lag=5:      0.0121
+  Autocorr lag=10:     -0.0015
+
+============================================================
+CORRELAZIONE (returns)
+============================================================
+                             OXYGEN_SHAKE_CHOCOLATE  OXYGEN_SHAKE_EVENING_BREATH  OXYGEN_SHAKE_GARLIC  OXYGEN_SHAKE_MINT  OXYGEN_SHAKE_MORNING_BREATH
+OXYGEN_SHAKE_CHOCOLATE                        1.000                        0.007               -0.003              0.019                       -0.005
+OXYGEN_SHAKE_EVENING_BREATH                   0.007                        1.000                0.007             -0.002                        0.014
+OXYGEN_SHAKE_GARLIC                          -0.003                        0.007                1.000              0.001                       -0.001
+OXYGEN_SHAKE_MINT                             0.019                       -0.002                0.001              1.000                        0.013
+OXYGEN_SHAKE_MORNING_BREATH                  -0.005                        0.014               -0.001              0.013                        1.000
+
+============================================================
+ADF TEST — p<0.05: mean reverting | p>0.05: trend/random walk
+============================================================
+  OXYGEN_SHAKE_CHOCOLATE        : stat=  -0.829, p=0.8104  ❌ trend/random walk
+  OXYGEN_SHAKE_EVENING_BREATH   : stat=  -1.139, p=0.6993  ❌ trend/random walk
+  OXYGEN_SHAKE_GARLIC           : stat=  -0.886, p=0.7926  ❌ trend/random walk
+  OXYGEN_SHAKE_MINT             : stat=  -1.514, p=0.5265  ❌ trend/random walk
+  OXYGEN_SHAKE_MORNING_BREATH   : stat=  -1.267, p=0.6442  ❌ trend/random walk
+
+============================================================
+TREND (regressione lineare sul prezzo)
+============================================================
+  OXYGEN_SHAKE_CHOCOLATE        : slope=+0.060522, R²=0.5234, p=0.0000  📈 up
+  OXYGEN_SHAKE_EVENING_BREATH   : slope=-0.057162, R²=0.5598, p=0.0000  📉 down
+  OXYGEN_SHAKE_GARLIC           : slope=+0.148166, R²=0.9237, p=0.0000  📈 up
+  OXYGEN_SHAKE_MINT             : slope=+0.029992, R²=0.2215, p=0.0000  📈 up
+  OXYGEN_SHAKE_MORNING_BREATH   : slope=-0.074471, R²=0.7554, p=0.0000  📉 down
+
+============================================================
+COINTEGRAZIONE (p<0.05 = coppia cointegrata)
+============================================================
+      OXYGEN_SHAKE_CHOCOLATE         [/](https://file+.vscode-resource.vscode-cdn.net/) OXYGEN_SHAKE_EVENING_BREATH   : p=0.1840
+      OXYGEN_SHAKE_CHOCOLATE         [/](https://file+.vscode-resource.vscode-cdn.net/) OXYGEN_SHAKE_GARLIC           : p=0.5828
+      OXYGEN_SHAKE_CHOCOLATE         [/](https://file+.vscode-resource.vscode-cdn.net/) OXYGEN_SHAKE_MINT             : p=0.3919
+      OXYGEN_SHAKE_CHOCOLATE         [/](https://file+.vscode-resource.vscode-cdn.net/) OXYGEN_SHAKE_MORNING_BREATH   : p=0.7430
+      OXYGEN_SHAKE_EVENING_BREATH    [/](https://file+.vscode-resource.vscode-cdn.net/) OXYGEN_SHAKE_GARLIC           : p=0.4110
+      OXYGEN_SHAKE_EVENING_BREATH    [/](https://file+.vscode-resource.vscode-cdn.net/) OXYGEN_SHAKE_MINT             : p=0.6937
+      OXYGEN_SHAKE_EVENING_BREATH    [/](https://file+.vscode-resource.vscode-cdn.net/) OXYGEN_SHAKE_MORNING_BREATH   : p=0.5064
+      OXYGEN_SHAKE_GARLIC            [/](https://file+.vscode-resource.vscode-cdn.net/) OXYGEN_SHAKE_MINT             : p=0.7595
+      OXYGEN_SHAKE_GARLIC            [/](https://file+.vscode-resource.vscode-cdn.net/) OXYGEN_SHAKE_MORNING_BREATH   : p=0.5405
+      OXYGEN_SHAKE_MINT              [/](https://file+.vscode-resource.vscode-cdn.net/) OXYGEN_SHAKE_MORNING_BREATH   : p=0.5992
+
+============================================================
+Z-SCORE ROLLING (window=200) — % tempo fuori ±1.5
+============================================================
+  OXYGEN_SHAKE_CHOCOLATE        : z>+1.5: 17.1%  z<-1.5: 16.4%  z_mean=0.027  z_std=1.382
+  OXYGEN_SHAKE_EVENING_BREATH   : z>+1.5: 16.1%  z<-1.5: 17.1%  z_mean=-0.078  z_std=1.412
+  OXYGEN_SHAKE_GARLIC           : z>+1.5: 22.1%  z<-1.5: 14.4%  z_mean=0.258  z_std=1.440
+  OXYGEN_SHAKE_MINT             : z>+1.5: 16.2%  z<-1.5: 17.2%  z_mean=-0.052  z_std=1.385
+  OXYGEN_SHAKE_MORNING_BREATH   : z>+1.5: 14.5%  z<-1.5: 17.0%  z_mean=-0.070  z_std=1.391
+
+============================================================
+SLOPE PER GIORNO
+============================================================
+
+OXYGEN_SHAKE_CHOCOLATE:
+  Day 1: slope=-0.126791, R²=0.7454  📉
+  Day 2: slope=+0.143230, R²=0.8672  📈
+  Day 3: slope=-0.030338, R²=0.1455  📉
+
+OXYGEN_SHAKE_EVENING_BREATH:
+  Day 1: slope=+0.120040, R²=0.7748  📈
+  Day 2: slope=-0.166278, R²=0.8716  📉
+  Day 3: slope=+0.007973, R²=0.0051  📈
+
+OXYGEN_SHAKE_GARLIC:
+  Day 1: slope=+0.181860, R²=0.7840  📈
+  Day 2: slope=+0.080613, R²=0.3991  📈
+  Day 3: slope=+0.129732, R²=0.5214  📈
+
+OXYGEN_SHAKE_MINT:
+  Day 1: slope=-0.102860, R²=0.4347  📉
+  Day 2: slope=+0.021682, R²=0.0215  📈
+  Day 3: slope=-0.023147, R²=0.1274  📉
+
+OXYGEN_SHAKE_MORNING_BREATH:
+  Day 1: slope=-0.044656, R²=0.1298  📉
+  Day 2: slope=-0.069840, R²=0.4038  📉
+  Day 3: slope=+0.028462, R²=0.0583  📈
+
+============================================================
+BID/ASK SPREAD MEDIO
+============================================================
+  OXYGEN_SHAKE_CHOCOLATE        : spread medio=12.19, max=15.00
+  OXYGEN_SHAKE_EVENING_BREATH   : spread medio=11.86, max=14.00
+  OXYGEN_SHAKE_GARLIC           : spread medio=15.05, max=18.00
+  OXYGEN_SHAKE_MINT             : spread medio=12.59, max=14.00
+  OXYGEN_SHAKE_MORNING_BREATH   : spread medio=12.78, max=15.00
+
+============================================================
+VARIAZIONE MEDIA PER STEP (tick implicito)
+============================================================
+  OXYGEN_SHAKE_CHOCOLATE        : mean=4.6925, median=3.8333, p95=11.5000
+  OXYGEN_SHAKE_EVENING_BREATH   : mean=4.6564, median=3.3333, p95=11.0000
+  OXYGEN_SHAKE_GARLIC           : mean=5.4857, median=4.5000, p95=13.6667
+  OXYGEN_SHAKE_MINT             : mean=4.5754, median=3.8333, p95=11.1667
+  OXYGEN_SHAKE_MORNING_BREATH   : mean=4.6768, median=4.0000, p95=11.5000
+
+I 5 prodotti OXYGEN_SHAKE sono tutti random walk (ADF p > 0.5 su tutti) con correlazione dei returns praticamente zero tra loro (~0.01–0.02). Questo esclude sia mean-reversion che pair-trading. L'unica edge è il trend direzionale per giorno, molto pulito su alcuni prodotti.
+  GARLIC è il più chiaro: slope positiva e R² alto su tutti e 3 i giorni → hard long, esattamente come MAGENTA in TG06
+
+CHOCOLATE e EVENING_BREATH invertono direzione ogni giorno con R² alti (0.75–0.87) → ottimi candidati per slope-following, ma serve il meccanismo di inversione giornaliera
+
+MINT e MORNING_BREATH hanno R² troppo bassi per fidarsi del segnale → threshold molto alta o skip
+
+Lo spread medio è 12–15 tick, identico a UV_VISOR → stesso approccio passive order con best_bid+1 / best_ask-1

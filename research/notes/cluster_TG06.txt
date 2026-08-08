@@ -1,0 +1,160 @@
+TG06: US_VISOR
+No Intra Correlation
+============================================================
+STATISTICHE BASE
+============================================================
+
+UV_VISOR_AMBER:
+  Prezzo medio:        7911.70
+  Min / Max:           7579.00 / 8641.50
+  Return totale:       -11.06%
+  Autocorr lag=1:      -0.0038
+  Autocorr lag=5:      -0.0031
+  Autocorr lag=10:     0.0252
+
+UV_VISOR_MAGENTA:
+  Prezzo medio:        11111.79
+  Min / Max:           10770.67 / 11478.50
+  Return totale:       4.57%
+  Autocorr lag=1:      -0.0108
+  Autocorr lag=5:      0.0081
+  Autocorr lag=10:     -0.0135
+
+UV_VISOR_ORANGE:
+  Prezzo medio:        10426.51
+  Min / Max:           9915.50 / 10851.83
+  Return totale:       -2.23%
+  Autocorr lag=1:      -0.0122
+  Autocorr lag=5:      -0.0021
+  Autocorr lag=10:     0.0031
+
+UV_VISOR_RED:
+  Prezzo medio:        11063.29
+  Min / Max:           10542.17 / 11346.50
+  Return totale:       5.40%
+  Autocorr lag=1:      -0.0040
+  Autocorr lag=5:      -0.0005
+  Autocorr lag=10:     -0.0108
+UV_VISOR_YELLOW:
+  Prezzo medio:        10957.46
+  Min / Max:           10589.83 / 11324.67
+  Return totale:       0.14%
+  Autocorr lag=1:      -0.0103
+  Autocorr lag=5:      -0.0142
+  Autocorr lag=10:     0.0006
+
+============================================================
+CORRELAZIONE (returns)
+============================================================
+                  UV_VISOR_AMBER  UV_VISOR_MAGENTA  UV_VISOR_ORANGE  UV_VISOR_RED  UV_VISOR_YELLOW
+UV_VISOR_AMBER             1.000             0.014            0.002         0.003            0.003
+UV_VISOR_MAGENTA           0.014             1.000            0.001         0.005            0.009
+UV_VISOR_ORANGE            0.002             0.001            1.000         0.007            0.010
+UV_VISOR_RED               0.003             0.005            0.007         1.000            0.010
+UV_VISOR_YELLOW            0.003             0.009            0.010         0.010            1.000
+
+============================================================
+ADF TEST — p<0.05: mean reverting | p>0.05: trend/random walk
+============================================================
+  UV_VISOR_AMBER                : stat=  -3.110, p=0.0258  ✅ mean reverting
+  UV_VISOR_MAGENTA              : stat=  -1.320, p=0.6201  ❌ trend/random walk
+  UV_VISOR_ORANGE               : stat=  -0.601, p=0.8707  ❌ trend/random walk
+  UV_VISOR_RED                  : stat=  -2.850, p=0.0515  ❌ trend/random walk
+  UV_VISOR_YELLOW               : stat=  -2.058, p=0.2617  ❌ trend/random walk
+
+============================================================
+TREND (regressione lineare sul prezzo)
+============================================================
+  UV_VISOR_AMBER                : slope=-0.072561, R²=0.8359, p=0.0000  📉 down
+  UV_VISOR_MAGENTA              : slope=+0.052116, R²=0.7042, p=0.0000  📈 up
+  UV_VISOR_ORANGE               : slope=-0.036001, R²=0.1806, p=0.0000  📉 down
+  UV_VISOR_RED                  : slope=+0.020925, R²=0.1429, p=0.0000  📈 up
+  UV_VISOR_YELLOW               : slope=+0.003753, R²=0.0052, p=0.0000  📈 up
+
+============================================================
+COINTEGRAZIONE (p<0.05 = coppia cointegrata)
+============================================================
+  ✅ UV_VISOR_AMBER                 / UV_VISOR_MAGENTA              : p=0.0040
+  ✅ UV_VISOR_AMBER                 / UV_VISOR_ORANGE               : p=0.0223
+      UV_VISOR_AMBER                 / UV_VISOR_RED                  : p=0.4454
+      UV_VISOR_AMBER                 / UV_VISOR_YELLOW               : p=0.2529
+      UV_VISOR_MAGENTA               / UV_VISOR_ORANGE               : p=0.2947
+      UV_VISOR_MAGENTA               / UV_VISOR_RED                  : p=0.8172
+      UV_VISOR_MAGENTA               / UV_VISOR_YELLOW               : p=0.6430
+      UV_VISOR_ORANGE                / UV_VISOR_RED                  : p=0.9684
+      UV_VISOR_ORANGE                / UV_VISOR_YELLOW               : p=0.4260
+      UV_VISOR_RED                   / UV_VISOR_YELLOW               : p=0.2254
+============================================================
+Z-SCORE ROLLING (window=200) — % tempo fuori ±1.5
+============================================================
+  UV_VISOR_AMBER                : z>+1.5: 11.2%  z<-1.5: 21.8%  z_mean=-0.321  z_std=1.372
+  UV_VISOR_MAGENTA              : z>+1.5: 16.6%  z<-1.5: 13.0%  z_mean=0.081  z_std=1.349
+  UV_VISOR_ORANGE               : z>+1.5: 16.2%  z<-1.5: 16.7%  z_mean=-0.056  z_std=1.399
+  UV_VISOR_RED                  : z>+1.5: 19.9%  z<-1.5: 13.7%  z_mean=0.168  z_std=1.397
+  UV_VISOR_YELLOW               : z>+1.5: 16.3%  z<-1.5: 15.6%  z_mean=0.014  z_std=1.389
+
+============================================================
+SLOPE PER GIORNO
+============================================================
+
+UV_VISOR_AMBER:
+  Day 1: slope=-0.149925, R²=0.8258  📉
+  Day 2: slope=-0.068867, R²=0.4602  📉
+  Day 3: slope=+0.004369, R²=0.0067  📈
+
+UV_VISOR_MAGENTA:
+  Day 1: slope=+0.045706, R²=0.3382  📈
+  Day 2: slope=+0.094092, R²=0.4341  📈
+  Day 3: slope=+0.026497, R²=0.1970  📈
+
+UV_VISOR_ORANGE:
+  Day 1: slope=+0.184229, R²=0.8954  📈
+  Day 2: slope=-0.027450, R²=0.1479  📉
+  Day 3: slope=-0.132510, R²=0.5790  📉
+
+UV_VISOR_RED:
+  Day 1: slope=+0.175331, R²=0.7747  📈
+  Day 2: slope=-0.039367, R²=0.1525  📉
+  Day 3: slope=+0.117714, R²=0.8141  📈
+
+UV_VISOR_YELLOW:
+  Day 1: slope=-0.129621, R²=0.6436  📉
+  Day 2: slope=-0.040085, R²=0.1024  📉
+  Day 3: slope=+0.061632, R²=0.3493  📈
+
+============================================================
+BID/ASK SPREAD MEDIO
+============================================================
+  UV_VISOR_AMBER                : spread medio=10.32, max=14.00
+  UV_VISOR_MAGENTA              : spread medio=14.09, max=16.00
+  UV_VISOR_ORANGE               : spread medio=13.28, max=15.00
+  UV_VISOR_RED                  : spread medio=14.04, max=16.00
+  UV_VISOR_YELLOW               : spread medio=13.91, max=16.00
+
+============================================================
+VARIAZIONE MEDIA PER STEP (tick implicito)
+============================================================
+  UV_VISOR_AMBER                : mean=3.6717, median=3.1667, p95=9.0000
+  UV_VISOR_MAGENTA              : mean=5.1285, median=4.3333, p95=12.5000
+  UV_VISOR_ORANGE               : mean=4.8290, median=4.0000, p95=12.0000
+  UV_VISOR_RED                  : mean=5.0504, median=4.1667, p95=12.6667
+  UV_VISOR_YELLOW               : mean=5.0137, median=4.3333, p95=12.3500
+
+  Strategia TG06 UV-Visors
+
+I 5 prodotti sono completamente indipendenti (correlazione ~0, nessuna cointegrazione utile intraday) quindi ogni prodotto va trattato individualmente. Lo spread bid/ask è 10-14 punti su prezzi da 8000-11000 — unica via percorribile sono ordini passivi esattamente come TG03.
+
+MAGENTA — Long Fisso
+È il prodotto più affidabile del cluster. Slope positiva tutti e 3 i giorni (R² 0.34 / 0.43 / 0.20) con return totale +4.57%. Nessun giorno inverte. Strategia: long fisso a +10, entrata passiva, nessun filtro — equivalente di OVAL in TG03.
+
+AMBER — Short con Uscita al Day 3
+ADF conferma mean reversion (p=0.026) ma ha un trend fortissimo al ribasso nei primi 2 giorni (R² 0.83 / 0.46) che si annulla completamente al Day 3 (R²=0.007, slope quasi zero). Z-mean = -0.321, 21.8% del tempo sotto -1.5. Strategia: short passivo con doppio filtro — entra solo se il trend in-game conferma la discesa, chiude automaticamente quando il trend si esaurisce.
+
+ORANGE — Short con Filtro Day 1
+Slope negativa forte al Day 2 e Day 3 (R² 0.15 / 0.58) ma al Day 1 è fortemente positiva (R²=0.90). Il filtro in-game risolve automaticamente: non entra finché il trend non vira al negativo. Strategia: short passivo con conferma in-game.
+
+RED — Long con Filtro Day 2
+Slope positiva forte al Day 1 (R²=0.77) e Day 3 (R²=0.81) ma inverte al Day 2 (R²=0.15, slope negativa). Il filtro in-game lo gestisce. Strategia: long passivo con conferma in-game.
+
+YELLOW — Escluso
+Slope R²=0.005 sull'intero periodo — rumore puro. I giorni singoli hanno R² tra 0.10 e 0.64 ma con direzioni che cambiano ogni giorno senza pattern. Il costo dello spread non è giustificato.

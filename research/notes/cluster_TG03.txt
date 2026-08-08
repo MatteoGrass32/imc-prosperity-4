@@ -1,0 +1,152 @@
+═══════════════════════════════════════════════════════
+TG03 - MICROCHIP_CIRCLE
+═══════════════════════════════════════════════════════
+Dispersione Sharpe in TG03:
+
+Prodotto	Return %	Vol	Sharpe
+Square	+9.42%	6.80%	+0.801
+Circle	+1.39%	4.52%	+0.185
+Rectangle	-4.44%	6.77%	-0.406
+Triangle	-7.00%	6.73%	-0.652
+Oval	-16.74%	6.84%	-1.619
+
+============================================================
+STATISTICHE BASE
+============================================================
+
+MICROCHIP_CIRCLE:
+  Prezzo medio:        9214.89
+  Min / Max:           8911.17 / 9585.17
+  Return totale:       1.39%
+  Autocorr lag=1:      0.0028
+  Autocorr lag=5:      0.0004
+  Autocorr lag=10:     -0.0068
+
+MICROCHIP_OVAL:
+  Prezzo medio:        8179.60
+  Min / Max:           7367.50 / 8940.17
+  Return totale:       -16.74%
+  Autocorr lag=1:      -0.0128
+  Autocorr lag=5:      -0.0130
+  Autocorr lag=10:     -0.0044
+
+MICROCHIP_RECTANGLE:
+  Prezzo medio:        8732.44
+  Min / Max:           8141.83 / 9287.50
+  Return totale:       -4.44%
+  Autocorr lag=1:      -0.0046
+  Autocorr lag=5:      -0.0060
+  Autocorr lag=10:     0.0277
+
+MICROCHIP_SQUARE:
+  Prezzo medio:        13594.75
+  Min / Max:           12517.33 / 14441.33
+  Return totale:       9.42%
+  Autocorr lag=1:      -0.0288
+  Autocorr lag=5:      0.0005
+  Autocorr lag=10:     0.0054
+
+MICROCHIP_TRIANGLE:
+  Prezzo medio:        9686.39
+  Min / Max:           9143.33 / 10190.00
+ Return totale:       -7.00%
+  Autocorr lag=1:      0.0008
+  Autocorr lag=5:      0.0126
+  Autocorr lag=10:     0.0072
+
+============================================================
+CORRELAZIONE (returns)
+============================================================
+                     MICROCHIP_CIRCLE  MICROCHIP_OVAL  MICROCHIP_RECTANGLE  MICROCHIP_SQUARE  MICROCHIP_TRIANGLE
+MICROCHIP_CIRCLE                1.000           0.020                0.007            -0.004              -0.002
+MICROCHIP_OVAL                  0.020           1.000                0.008             0.006               0.003
+MICROCHIP_RECTANGLE             0.007           0.008                1.000             0.015               0.020
+MICROCHIP_SQUARE               -0.004           0.006                0.015             1.000               0.014
+MICROCHIP_TRIANGLE             -0.002           0.003                0.020             0.014               1.000
+
+============================================================
+ADF TEST — p<0.05: mean reverting | p>0.05: trend/random walk
+============================================================
+  MICROCHIP_CIRCLE         : stat=  -1.552, p=0.5077  ❌ trend/random walk
+  MICROCHIP_OVAL           : stat=  -0.760, p=0.8306  ❌ trend/random walk
+  MICROCHIP_RECTANGLE      : stat=  -1.758, p=0.4016  ❌ trend/random walk
+  MICROCHIP_SQUARE         : stat=  -1.628, p=0.4685  ❌ trend/random walk
+  MICROCHIP_TRIANGLE       : stat=  -1.595, p=0.4862  ❌ trend/random walk
+
+============================================================
+TREND (regressione lineare sul prezzo)
+============================================================
+  MICROCHIP_CIRCLE         : slope=+0.048604, R²=0.6488, p=0.0000  📈 up
+  MICROCHIP_OVAL           : slope=-0.124690, R²=0.8914, p=0.0000  📉 down
+  MICROCHIP_RECTANGLE      : slope=-0.074595, R²=0.6829, p=0.0000  📉 down
+  MICROCHIP_SQUARE         : slope=+0.128829, R²=0.6015, p=0.0000  📈 up
+  MICROCHIP_TRIANGLE       : slope=-0.053140, R²=0.5909, p=0.0000  📉 down
+
+============================================================
+COINTEGRAZIONE (p<0.05 = coppia cointegrata)
+============================================================
+      MICROCHIP_CIRCLE          / MICROCHIP_OVAL           : p=0.3942
+      MICROCHIP_CIRCLE          / MICROCHIP_RECTANGLE      : p=0.1149
+      MICROCHIP_CIRCLE          / MICROCHIP_SQUARE         : p=0.4766
+      MICROCHIP_CIRCLE          / MICROCHIP_TRIANGLE       : p=0.5301
+      MICROCHIP_OVAL            / MICROCHIP_RECTANGLE      : p=0.6728
+      MICROCHIP_OVAL            / MICROCHIP_SQUARE         : p=0.7534
+      MICROCHIP_OVAL            / MICROCHIP_TRIANGLE       : p=0.1138
+      MICROCHIP_RECTANGLE       / MICROCHIP_SQUARE         : p=0.3109
+      MICROCHIP_RECTANGLE       / MICROCHIP_TRIANGLE       : p=0.4390
+      MICROCHIP_SQUARE          / MICROCHIP_TRIANGLE       : p=0.3201
+
+============================================================
+Z-SCORE ROLLING (window=200) — % tempo fuori ±1.5
+============================================================
+  MICROCHIP_CIRCLE         : z>+1.5: 16.3%  z<-1.5: 17.1%  z_mean=0.012  z_std=1.381
+  MICROCHIP_OVAL           : z>+1.5: 11.4%  z<-1.5: 22.0%  z_mean=-0.346  z_std=1.368
+  MICROCHIP_RECTANGLE      : z>+1.5: 14.7%  z<-1.5: 19.0%  z_mean=-0.117  z_std=1.394
+  MICROCHIP_SQUARE         : z>+1.5: 18.6%  z<-1.5: 14.9%  z_mean=0.119  z_std=1.394
+  MICROCHIP_TRIANGLE       : z>+1.5: 15.7%  z<-1.5: 18.3%  z_mean=-0.113  z_std=1.406
+
+============================================================
+SLOPE PER GIORNO
+============================================================
+
+MICROCHIP_CIRCLE:
+  Day 1: slope=-0.024344, R²=0.1872  📉
+  Day 2: slope=+0.134612, R²=0.8067  📈
+  Day 3: slope=-0.032954, R²=0.1468  📉
+
+MICROCHIP_OVAL:
+  Day 1: slope=-0.101565, R²=0.4562  📉
+  Day 2: slope=-0.156511, R²=0.7927  📉
+  Day 3: slope=-0.155025, R²=0.6350  📉
+
+MICROCHIP_RECTANGLE:
+  Day 1: slope=+0.007663, R²=0.0051  📈
+  Day 2: slope=-0.096048, R²=0.5643  📉
+  Day 3: slope=+0.098298, R²=0.5311  📈
+
+MICROCHIP_SQUARE:
+  Day 1: slope=+0.308723, R²=0.6731  📈
+  Day 2: slope=+0.020344, R²=0.0085  📈
+  Day 3: slope=-0.057450, R²=0.0713  📉
+
+MICROCHIP_TRIANGLE:
+  Day 1: slope=-0.011967, R²=0.0166  📉
+  Day 2: slope=+0.033656, R²=0.0612  📈
+  Day 3: slope=-0.134814, R²=0.6282  
+
+===========================================================
+BID/ASK SPREAD MEDIO
+============================================================
+  MICROCHIP_CIRCLE         : spread medio=8.26, max=10.00
+  MICROCHIP_OVAL           : spread medio=7.45, max=10.00
+  MICROCHIP_RECTANGLE      : spread medio=7.89, max=10.00
+  MICROCHIP_SQUARE         : spread medio=11.72, max=15.00
+  MICROCHIP_TRIANGLE       : spread medio=8.64, max=10.00
+
+Tutti e 5 sono random walk (ADF p > 0.05 per tutti) — quindi il market making classico non funziona. 
+
+Perché TG03 è quasi inutilizzabile:
+Spread medio 8-12 punti su prezzi da 8000-14000 → ogni round-trip costa ~16-24 punti. Su LIMIT=10, ogni entrata+uscita costa 160-240 in spread
+Slope instabile per giorno: CIRCLE e RECTANGLE cambiano segno ogni giorno, SQUARE inverte al Day 3, TRIANGLE al Day 2. Solo OVAL è l'unico con slope consistentemente negativa tutti e 3 i giorni (R² 0.46, 0.79, 0.64)
+Trend following con ordini aggressivi paga lo spread ad ogni step per mantenere la posizione — devastante
+L'unico prodotto difendibile è OVAL — short fisso a -10, entrata passiva al bid+1, nessun rebalancing continuo. Gli altri cambiano direzione troppo spesso per essere profittevoli netti di spread

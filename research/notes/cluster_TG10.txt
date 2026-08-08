@@ -1,0 +1,43 @@
+TG10: SNACKPACK
+ Vanilla e Chocolate hanno covarianza negativa a -0.91 
+  Pistacchio e Rasperry hanno covarianza negativa a -0.83
+Strawberry e Rasperry hanno covarianza negativa a -0.92
+Strawberry e Pistacchio hanno covarianza positiva a 0.91
+ Dalla Cross Correlation inoltre possiamo assumere (circa) no relazione temporale oltre lo step 0
+Dall'ADF Test STRAWBERRY ha una p=0.0511 che mi porta ad accettare H0 sul non essere Mean Reverting, ma siamo lì vicini
+Tutti gli altri del Clustering non fanno mean reversion significativa
+Inoltre Lo Spread è enorme
+
+═══════════════════════════════════════════════════════
+ADF TEST — p < 0.05 = stazionaria (mean-reverting OK)
+═══════════════════════════════════════════════════════
+  CHOCOLATE     p=0.3364  ✗ NON stazionaria — NO mean reversion!
+  VANILLA       p=0.4277  ✗ NON stazionaria — NO mean reversion!
+  PISTACHIO     p=0.5933  ✗ NON stazionaria — NO mean reversion!
+  STRAWBERRY    p=0.0511  ✗ NON stazionaria — NO mean reversion!
+  RASPBERRY     p=0.1082  ✗ NON stazionaria — NO mean reversion!
+
+═══════════════════════════════════════════════════════
+SPREAD BID-ASK MEDIO (costo pagato ad ogni trade)
+═══════════════════════════════════════════════════════
+  CHOCOLATE     spread medio = 16.47  max = 18.00
+  VANILLA       spread medio = 16.87  max = 18.00
+  PISTACHIO     spread medio = 15.93  max = 18.00
+  STRAWBERRY    spread medio = 17.83  max = 20.00
+  RASPBERRY     spread medio = 16.84  max = 18.00
+
+Movimenti > spread (17.83): 1/9999 = 0.0%
+Movimento medio assoluto: 3.73
+Movimento mediano:        3.17
+95° percentile:           9.17
+Half-life mean-reversion: 589.7 timestep
+  (< 10 = veloce e sfruttabile, > 50 = troppo lenta)
+
+DECISIONE FINALE: NESSUN TRADING SU TG10, oppure:
+L'unico approccio matematicamente sensato non è più lo Z-Score, ma il Pure Market Making (Grid Trading):
+
+Piazzare ordini LIMIT molto lontani dal Mid Price (es. +10/-10 tick).
+
+Non cercare di indovinare la direzione.
+
+Sperare di essere "colpiti" da qualcuno che ha fretta di scambiare, incassando così lo spread invece di pagarlo.

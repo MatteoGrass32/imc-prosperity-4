@@ -1,0 +1,158 @@
+TG05: ROBOT
+============================================================
+STATISTICHE BASE
+============================================================
+
+ROBOT_DISHES:
+  Prezzo medio:        10018.31
+  Min / Max:           9648.33 / 10498.67
+  Return totale:       4.05%
+  Autocorr lag=1:      -0.2313
+  Autocorr lag=5:      -0.0012
+  Autocorr lag=10:     0.0127
+
+ROBOT_IRONING:
+  Prezzo medio:        8701.57
+  Min / Max:           8156.17 / 9210.00
+  Return totale:       -8.00%
+  Autocorr lag=1:      -0.1199
+  Autocorr lag=5:      0.0157
+  Autocorr lag=10:     0.0165
+
+ROBOT_LAUNDRY:
+  Prezzo medio:        9822.76
+  Min / Max:           9583.00 / 10067.00
+  Return totale:       -2.42%
+  Autocorr lag=1:      0.0057
+  Autocorr lag=5:      -0.0018
+  Autocorr lag=10:     0.0001
+
+ROBOT_MOPPING:
+  Prezzo medio:        11100.21
+  Min / Max:           10602.83 / 11761.17
+  Return totale:       4.97%
+  Autocorr lag=1:      -0.0137
+  Autocorr lag=5:      -0.0006
+  Autocorr lag=10:     0.0176
+
+ROBOT_VACUUMING:
+  Prezzo medio:        9166.78
+  Min / Max:           8844.83 / 9597.83
+  Return totale:       -5.97%
+  Autocorr lag=1:      -0.0090
+  Autocorr lag=5:      0.0115
+  Autocorr lag=10:     -0.0038
+
+============================================================
+CORRELAZIONE (returns)
+============================================================
+                 ROBOT_DISHES  ROBOT_IRONING  ROBOT_LAUNDRY  ROBOT_MOPPING  ROBOT_VACUUMING
+ROBOT_DISHES            1.000         -0.002         -0.001         -0.011           -0.005
+ROBOT_IRONING          -0.002          1.000         -0.009          0.002            0.016
+ROBOT_LAUNDRY          -0.001         -0.009          1.000         -0.007           -0.008
+ROBOT_MOPPING          -0.011          0.002         -0.007          1.000           -0.021
+ROBOT_VACUUMING        -0.005          0.016         -0.008         -0.021            1.000
+
+============================================================
+ADF TEST — p<0.05: mean reverting | p>0.05: trend/random walk
+============================================================
+  ROBOT_DISHES                  : stat=  -0.867, p=0.7985  ❌ trend/random walk
+  ROBOT_IRONING                 : stat=  -0.425, p=0.9058  ❌ trend/random walk
+  ROBOT_LAUNDRY                 : stat=  -2.603, p=0.0925  ❌ trend/random walk
+  ROBOT_MOPPING                 : stat=  -1.447, p=0.5597  ❌ trend/random walk
+  ROBOT_VACUUMING               : stat=  -2.600, p=0.0930  ❌ trend/random walk
+
+============================================================
+TREND (regressione lineare sul prezzo)
+============================================================
+  ROBOT_DISHES                  : slope=+0.039736, R²=0.4766, p=0.0000  📈 up
+  ROBOT_IRONING                 : slope=-0.102679, R²=0.8761, p=0.0000  📉 down
+  ROBOT_LAUNDRY                 : slope=-0.009087, R²=0.0653, p=0.0000  📉 down
+  ROBOT_MOPPING                 : slope=+0.092304, R²=0.6985, p=0.0000  📈 up
+  ROBOT_VACUUMING               : slope=-0.038653, R²=0.6102, p=0.0000  📉 down
+
+============================================================
+COINTEGRAZIONE (p<0.05 = coppia cointegrata)
+============================================================
+      ROBOT_DISHES                   / ROBOT_IRONING                 : p=0.6465
+      ROBOT_DISHES                   / ROBOT_LAUNDRY                 : p=0.6619
+      ROBOT_DISHES                   / ROBOT_MOPPING                 : p=0.8632
+      ROBOT_DISHES                   / ROBOT_VACUUMING               : p=0.7000
+      ROBOT_IRONING                  / ROBOT_LAUNDRY                 : p=0.9625
+      ROBOT_IRONING                  / ROBOT_MOPPING                 : p=0.4725
+      ROBOT_IRONING                  / ROBOT_VACUUMING               : p=0.4561
+      ROBOT_LAUNDRY                  / ROBOT_MOPPING                 : p=0.2363
+      ROBOT_LAUNDRY                  / ROBOT_VACUUMING               : p=0.1786
+      ROBOT_MOPPING                  / ROBOT_VACUUMING               : p=0.5543
+
+============================================================
+Z-SCORE ROLLING (window=200) — % tempo fuori ±1.5
+============================================================
+  ROBOT_DISHES                  : z>+1.5: 18.1%  z<-1.5: 14.4%  z_mean=0.067  z_std=1.389
+  ROBOT_IRONING                 : z>+1.5: 12.9%  z<-1.5: 22.5%  z_mean=-0.294  z_std=1.398
+  ROBOT_LAUNDRY                 : z>+1.5: 14.2%  z<-1.5: 18.0%  z_mean=-0.098  z_std=1.366
+  ROBOT_MOPPING                 : z>+1.5: 18.3%  z<-1.5: 16.7%  z_mean=0.092  z_std=1.429
+  ROBOT_VACUUMING               : z>+1.5: 13.4%  z<-1.5: 17.6%  z_mean=-0.137  z_std=1.397
+
+============================================================
+SLOPE PER GIORNO
+============================================================
+
+ROBOT_DISHES:
+  Day 1: slope=-0.036769, R²=0.1145  📉
+  Day 2: slope=-0.009376, R²=0.0090  📉
+  Day 3: slope=+0.129921, R²=0.7659  📈
+
+ROBOT_IRONING:
+  Day 1: slope=-0.052794, R²=0.3370  📉
+  Day 2: slope=-0.146566, R²=0.8571  📉
+  Day 3: slope=+0.002617, R²=0.0007  📈
+
+ROBOT_LAUNDRY:
+  Day 1: slope=-0.049031, R²=0.4770  📉
+  Day 2: slope=-0.000067, R²=0.0000  📉
+  Day 3: slope=-0.093357, R²=0.5185  📉
+
+ROBOT_MOPPING:
+  Day 1: slope=+0.070491, R²=0.4725  📈
+  Day 2: slope=+0.194377, R²=0.8404  📈
+  Day 3: slope=-0.159496, R²=0.7051  📉
+
+ROBOT_VACUUMING:
+  Day 1: slope=-0.130416, R²=0.6868  📉
+  Day 2: slope=-0.055582, R²=0.4288  📉
+  Day 3: slope=-0.029162, R²=0.1839  📉
+
+============================================================
+BID/ASK SPREAD MEDIO
+============================================================
+  ROBOT_DISHES                  : spread medio=7.35, max=8.00
+  ROBOT_IRONING                 : spread medio=6.39, max=8.00
+  ROBOT_LAUNDRY                 : spread medio=7.17, max=8.00
+  ROBOT_MOPPING                 : spread medio=7.97, max=9.00
+  ROBOT_VACUUMING               : spread medio=6.75, max=8.00
+
+============================================================
+VARIAZIONE MEDIA PER STEP (tick implicito)
+============================================================
+  ROBOT_DISHES                  : mean=5.9529, median=3.5000, p95=31.0000
+  ROBOT_IRONING                 : mean=4.4260, median=3.3333, p95=10.0000
+  ROBOT_LAUNDRY                 : mean=4.5439, median=3.8333, p95=11.1667
+  ROBOT_MOPPING                 : mean=5.1814, median=4.3333, p95=12.8333
+  ROBOT_VACUUMING               : mean=4.2344, median=3.6667, p95=10.3333
+
+  TG05 ha una struttura molto diversa da TG06/TG09 — spread più stretto (6-8 tick vs 12-15) e segnali più misti per giorno. Ecco la lettura completa:
+
+Analisi TG05 — ROBOT
+Caratteristiche strutturali
+
+I 5 prodotti sono tutti random walk (ADF p > 0.09), correlazione praticamente zero tra loro — stesso profilo di TG09. Lo spread 6-8 tick è più stretto della metà rispetto a OXYGEN_SHAKE, il che significa meno margine per gli ordini passivi. Lo slope following rimane comunque applicabile.
+
+Slope per giorno — sintesi
+
+Prodotto	Day 1	Day 2	Day 3	Strategia
+VACUUMING	📉 R²=0.69	📉 R²=0.43	📉 R²=0.18	Hard short — short su tutti e 3 i giorni, decrescente ma coerente
+MOPPING	📈 R²=0.47	📈 R²=0.84	📉 R²=0.70	Long Day1+2, short Day3 — slope rolling lo cattura
+IRONING	📉 R²=0.34	📉 R²=0.86	📈 R²=0.0007	Short Day1+2, Day3 flat/rumore — threshold alta per non invertire
+LAUNDRY	📉 R²=0.48	📉 R²=0.00	📉 R²=0.52	Short Day1+3, Day2 flat — slope bassa threshold
+DISHES	📉 R²=0.11	📉 R²=0.009	📈 R²=0.77	Day1+2 rumore, Day3 forte up — skip o threshold molto alta

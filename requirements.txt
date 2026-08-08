@@ -1,0 +1,9 @@
+ipython
+jsonpickle
+numpy
+orjson
+pandas
+plotly
+streamlit
+tqdm
+typer

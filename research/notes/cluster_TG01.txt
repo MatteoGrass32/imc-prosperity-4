@@ -1,0 +1,147 @@
+TG01: GALAXY
+
+Colonne TG06: ['GALAXY_SOUNDS_BLACK_HOLES', 'GALAXY_SOUNDS_DARK_MATTER', 'GALAXY_SOUNDS_PLANETARY_RINGS', 'GALAXY_SOUNDS_SOLAR_FLAMES', 'GALAXY_SOUNDS_SOLAR_WINDS']
+
+============================================================
+STATISTICHE BASE
+============================================================
+
+GALAXY_SOUNDS_BLACK_HOLES:
+  Prezzo medio:        11466.87
+  Min / Max:           10855.67 / 12534.50
+  Return totale:       10.29%
+  Autocorr lag=1:      -0.0256
+  Autocorr lag=5:      0.0063
+  Autocorr lag=10:     -0.0279
+
+GALAXY_SOUNDS_DARK_MATTER:
+  Prezzo medio:        10226.66
+  Min / Max:           9864.33 / 10571.83
+  Return totale:       0.86%
+  Autocorr lag=1:      -0.0054
+  Autocorr lag=5:      -0.0037
+  Autocorr lag=10:     -0.0191
+
+GALAXY_SOUNDS_PLANETARY_RINGS:
+  Prezzo medio:        10766.67
+  Min / Max:           10451.00 / 11141.17
+  Return totale:       -1.10%
+  Autocorr lag=1:      0.0156
+  Autocorr lag=5:      -0.0109
+  Autocorr lag=10:     0.0056
+
+GALAXY_SOUNDS_SOLAR_FLAMES:
+  Prezzo medio:        11092.57
+  Min / Max:           10605.50 / 11442.00
+  Return totale:       2.60%
+  Autocorr lag=1:      -0.0114
+  Autocorr lag=5:      0.0066
+  Autocorr lag=10:     0.0113
+
+GALAXY_SOUNDS_SOLAR_WINDS:
+  Prezzo medio:        10437.54
+  Min / Max:           9901.00 / 10793.50
+  Return totale:       0.83%
+  Autocorr lag=1:      -0.0118
+  Autocorr lag=5:      0.0080
+  Autocorr lag=10:     -0.0002
+
+============================================================
+CORRELAZIONE (returns)
+============================================================
+                               GALAXY_SOUNDS_BLACK_HOLES  GALAXY_SOUNDS_DARK_MATTER  GALAXY_SOUNDS_PLANETARY_RINGS  GALAXY_SOUNDS_SOLAR_FLAMES  GALAXY_SOUNDS_SOLAR_WINDS
+GALAXY_SOUNDS_BLACK_HOLES                          1.000                     -0.008                          0.004                       0.007                     -0.003
+GALAXY_SOUNDS_DARK_MATTER                         -0.008                      1.000                          0.000                       0.013                      0.012
+GALAXY_SOUNDS_PLANETARY_RINGS                      0.004                      0.000                          1.000                       0.019                     -0.006
+GALAXY_SOUNDS_SOLAR_FLAMES                         0.007                      0.013                          0.019                       1.000                     -0.002
+GALAXY_SOUNDS_SOLAR_WINDS                         -0.003                      0.012                         -0.006                      -0.002                      1.000
+
+============================================================
+ADF TEST — p<0.05: mean reverting | p>0.05: trend/random walk
+============================================================
+  GALAXY_SOUNDS_BLACK_HOLES     : stat=   0.440, p=0.9829  ❌ trend/random walk
+  GALAXY_SOUNDS_DARK_MATTER     : stat=  -1.821, p=0.3700  ❌ trend/random walk
+  GALAXY_SOUNDS_PLANETARY_RINGS : stat=  -2.215, p=0.2009  ❌ trend/random walk
+  GALAXY_SOUNDS_SOLAR_FLAMES    : stat=  -2.335, p=0.1610  ❌ trend/random walk
+  GALAXY_SOUNDS_SOLAR_WINDS     : stat=  -1.743, p=0.4094  ❌ trend/random walk
+
+============================================================
+TREND (regressione lineare sul prezzo)
+============================================================
+  GALAXY_SOUNDS_BLACK_HOLES     : slope=+0.109523, R²=0.7200, p=0.0000  📈 up
+  GALAXY_SOUNDS_DARK_MATTER     : slope=+0.021899, R²=0.1949, p=0.0000  📈 up
+  GALAXY_SOUNDS_PLANETARY_RINGS : slope=+0.014818, R²=0.0771, p=0.0000  📈 up
+  GALAXY_SOUNDS_SOLAR_FLAMES    : slope=+0.021122, R²=0.1016, p=0.0000  📈 up
+  GALAXY_SOUNDS_SOLAR_WINDS     : slope=+0.026306, R²=0.1600, p=0.0000  📈 up
+
+============================================================
+COINTEGRAZIONE (p<0.05 = coppia cointegrata)
+============================================================
+      GALAXY_SOUNDS_BLACK_HOLES      / GALAXY_SOUNDS_DARK_MATTER     : p=0.7219
+      GALAXY_SOUNDS_BLACK_HOLES      / GALAXY_SOUNDS_PLANETARY_RINGS : p=0.9863
+      GALAXY_SOUNDS_BLACK_HOLES      / GALAXY_SOUNDS_SOLAR_FLAMES    : p=0.9912
+      GALAXY_SOUNDS_BLACK_HOLES      / GALAXY_SOUNDS_SOLAR_WINDS     : p=0.9937
+      GALAXY_SOUNDS_DARK_MATTER      / GALAXY_SOUNDS_PLANETARY_RINGS : p=0.3947
+      GALAXY_SOUNDS_DARK_MATTER      / GALAXY_SOUNDS_SOLAR_FLAMES    : p=0.4958
+      GALAXY_SOUNDS_DARK_MATTER      / GALAXY_SOUNDS_SOLAR_WINDS     : p=0.5878
+      GALAXY_SOUNDS_PLANETARY_RINGS  / GALAXY_SOUNDS_SOLAR_FLAMES    : p=0.3598
+      GALAXY_SOUNDS_PLANETARY_RINGS  / GALAXY_SOUNDS_SOLAR_WINDS     : p=0.2944
+      GALAXY_SOUNDS_SOLAR_FLAMES     / GALAXY_SOUNDS_SOLAR_WINDS     : p=0.1395
+
+============================================================
+Z-SCORE ROLLING (window=200) — % tempo fuori ±1.5
+============================================================
+  GALAXY_SOUNDS_BLACK_HOLES     : z>+1.5: 21.7%  z<-1.5: 13.0%  z_mean=0.226  z_std=1.390
+  GALAXY_SOUNDS_DARK_MATTER     : z>+1.5: 16.8%  z<-1.5: 16.4%  z_mean=0.030  z_std=1.392
+  GALAXY_SOUNDS_PLANETARY_RINGS : z>+1.5: 14.6%  z<-1.5: 16.7%  z_mean=-0.091  z_std=1.387
+  GALAXY_SOUNDS_SOLAR_FLAMES    : z>+1.5: 21.1%  z<-1.5: 15.6%  z_mean=0.155  z_std=1.425
+  GALAXY_SOUNDS_SOLAR_WINDS     : z>+1.5: 18.1%  z<-1.5: 16.0%  z_mean=0.055  z_std=1.446
+
+============================================================
+SLOPE PER GIORNO
+============================================================
+
+GALAXY_SOUNDS_BLACK_HOLES:
+  Day 1: slope=+0.107073, R²=0.4554  📈
+  Day 2: slope=+0.029522, R²=0.1092  📈
+  Day 3: slope=+0.370412, R²=0.8982  📈
+
+GALAXY_SOUNDS_DARK_MATTER:
+  Day 1: slope=-0.078360, R²=0.3613  📉
+  Day 2: slope=+0.094396, R²=0.5097  📈
+  Day 3: slope=+0.082289, R²=0.7342  📈
+
+GALAXY_SOUNDS_PLANETARY_RINGS:
+  Day 1: slope=-0.169742, R²=0.7672  📉
+  Day 2: slope=+0.038942, R²=0.1173  📈
+  Day 3: slope=+0.023562, R²=0.0740  📈
+
+GALAXY_SOUNDS_SOLAR_FLAMES:
+  Day 1: slope=+0.176773, R²=0.8417  📈
+  Day 2: slope=+0.056619, R²=0.2215  📈
+  Day 3: slope=-0.181932, R²=0.8510  📉
+
+GALAXY_SOUNDS_SOLAR_WINDS:
+  Day 1: slope=+0.248007, R²=0.7611  📈
+  Day 2: slope=+0.055076, R²=0.2663  📈
+  Day 3: slope=-0.101612, R²=0.7538  📉
+
+============================================================
+BID/ASK SPREAD MEDIO
+============================================================
+  GALAXY_SOUNDS_BLACK_HOLES     : spread medio=14.51, max=18.00
+  GALAXY_SOUNDS_DARK_MATTER     : spread medio=13.05, max=15.00
+  GALAXY_SOUNDS_PLANETARY_RINGS : spread medio=13.69, max=16.00
+  GALAXY_SOUNDS_SOLAR_FLAMES    : spread medio=14.07, max=16.00
+  GALAXY_SOUNDS_SOLAR_WINDS     : spread medio=13.30, max=15.00
+
+============================================================
+VARIAZIONE MEDIA PER STEP (tick implicito)
+============================================================
+  GALAXY_SOUNDS_BLACK_HOLES     : mean=5.2856, median=4.3333, p95=13.1667
+  GALAXY_SOUNDS_DARK_MATTER     : mean=4.7498, median=4.0000, p95=11.5000
+  GALAXY_SOUNDS_PLANETARY_RINGS : mean=5.0205, median=4.1667, p95=12.1833
+  GALAXY_SOUNDS_SOLAR_FLAMES    : mean=5.0974, median=4.3333, p95=12.5000
+  GALAXY_SOUNDS_SOLAR_WINDS     : mean=4.7990, median=4.0000, p95=12.0000
+
+  I cinque prodotti condividono un trend rialzista comune (slope lineare positivo, p≈0, tutti e cinque), ma **non sono cointegrati tra loro

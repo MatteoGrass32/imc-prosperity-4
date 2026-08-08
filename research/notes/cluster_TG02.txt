@@ -1,0 +1,70 @@
+TG02: SLEEP_POD
+Correlation: There's no correlation between asset 
+Cross-Correlation: c'è ma senza un trend chiaro, meglio non considerarla 
+
+Coppia                         Ampiezza oscillazione     Spread     Break-even?
+═══════════════════════════════════════════════════════════════════════════
+  Cotton    /Nylon       osc= 216.7 pts  spread=18.6  ✅ SÌ
+  Nylon     /Polyester   osc= 152.4 pts  spread=18.9  ✅ SÌ
+  Polyester /Lamb Wool   osc= 263.2 pts  spread=19.7  ✅ SÌ
+  Lamb Wool /Suede       osc= 211.9 pts  spread=19.3  ✅ SÌ
+Coppia                     Half-life  ADF ratio p  z_entry suggerito
+══════════════════════════════════════════════════════════════════════
+  Cotton    /Nylon       hl=   676  p=0.1532 ⚠️  ratio non stazionario  z_entry≈0.0288
+  Nylon     /Polyester   hl=   527  p=0.1056 ⚠️  ratio non stazionario  z_entry≈0.0165
+  Polyester /Lamb Wool   hl=  1231  p=0.5202 ⚠️  ratio non stazionario  z_entry≈0.0315
+  Lamb Wool /Suede       hl=   907  p=0.3590 ⚠️  ratio non stazionario  z_entry≈0.0238
+
+  ═══════════════════════════════════════════════════════
+TG02 - Vertical Sleeping Pods
+═══════════════════════════════════════════════════════
+  Ratio prezzi (stabile = arbitraggio strutturale):
+    Cotton      /Nylon         mean=1.1964  std=0.0225  cv=1.88%
+    Nylon       /Polyester     mean=0.8140  std=0.0129  cv=1.58%
+    Polyester   /Lamb Wool     mean=1.1067  std=0.0246  cv=2.22%
+    Lamb Wool   /Suede         mean=0.9392  std=0.0186  cv=1.98%
+  FFT — periodo dominante nei prezzi:
+    Cotton        periodo=10000 step  forza=10.8%
+    Nylon         periodo=10000 step  forza=9.7%
+
+    ════════════════════════════════════════════════════════════
+TG02 - Vertical Sleeping Pods
+════════════════════════════════════════════════════════════
+  Autocorrelazione rendimento lag-1 (> 0 = momentum):
+    Suede            ac1=-0.003  ·  rumore
+    Lamb Wool        ac1=+0.018  ·  rumore
+    Polyester        ac1=-0.004  ·  rumore
+    Nylon            ac1=+0.005  ·  rumore
+    Cotton           ac1=+0.008  ·  rumore
+  Lead-lag più forte (lag 1-10):
+    Lamb Wool    → Cotton        lag=4  ccf=-0.028
+    
+════════════════════════════════════════════════════════════
+TG02 - Vertical Sleeping Pods
+════════════════════════════════════════════════════════════
+  Cotton    /Nylon       p=0.3182  β= 0.472  hl=    753  ⚠️  debole
+  Nylon     /Polyester   p=0.1925  β= 0.374  hl=    469  ⚠️  debole
+  Polyester /Lamb Wool   p=0.8487  β= 0.351  hl=   1772  ⚠️  debole
+  Lamb Wool /Suede       p=0.4917  β= 0.334  hl=    851  ⚠️  debole
+
+Coppie candidate: 0
+
+Cosa dicono i dati di TG02
+Il problema centrale è uno solo: i ratio tra i 5 prodotti hanno CV bassissimi (1.58%–2.22%) ma i test statistici dicono che questi ratio non sono stazionari. Come si concilia?
+
+La spiegazione è semplice: i prezzi di tutti e 5 i prodotti si muovono lentamente nella stessa direzione nel lungo periodo (trend comune), quindi il ratio oscilla intorno a una media apparente ma non torna mai davvero alla media. L'half-life di 527–1772 step lo conferma — sei nel mezzo di un trade per settimane prima di vedere il rientro, se arriva.
+
+La cross-correlazione è rumore puro (ac1 < 0.03 su tutto), lead-lag più forte è -0.028 che è statisticamente irrilevante. Non c'è nulla da anticipare.
+
+La strategia giusta per TG02
+Dati questi numeri, pure market making è l'unica strategia con evidenza statistica a supporto — esattamente come TG10. Il ragionamento è:
+
+Spread medio ~19 punti su tutti i 5 prodotti
+
+Ampiezza oscillazione 150–260 punti → il prezzo si muove abbastanza da generare fill
+
+Nessuna correlazione tra prodotti → tenerli tutti e 5 non aumenta il rischio rispetto a tenerne uno solo
+
+Position limit 10 per prodotto → puoi avere fino a 50 unità esposte in totale, ma bilanciate
+
+L'unica differenza rispetto a TG10 è che lo spread su TG02 è leggermente più alto (~19 vs ~17), il che significa più PnL per fill ma probabilmente simile frequenza di esecuzione. Stima grezza: se TG10 fa ~18k/giorno su 5 prodotti, TG02 può fare ~20k/giorno proporzionalmente.
