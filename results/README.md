@@ -18,6 +18,32 @@ make backtest TRADER=traders/round5_final.py DAY=5-4
 
 Full stdout of each run is kept under [`raw/`](raw).
 
+## Rounds 1 and 2: `traders/round1_final.py`, `traders/round2_final.py`
+
+Two products, position limit 80. One is a market maker around a fair value near 10,000, the
+other rides a drift of a thousand a day.
+
+| Day | PnL | Sharpe (ann.) | Max drawdown | Calmar |
+|---|--:|--:|--:|--:|
+| 1--2 | 95,057 | 59.16 | 1,816 | 52.3 |
+| 1--1 | 95,580 | 57.14 | 1,601 | 59.7 |
+| 1-0 | 94,589 | 53.53 | 1,607 | 58.9 |
+| 2--1 | 99,968 | 61.58 | 1,494 | 66.9 |
+| 2-0 | 99,624 | 57.71 | 1,755 | 56.8 |
+| 2-1 | 99,392 | 54.31 | 1,687 | 58.9 |
+
+These are the steadiest results in the repository by a wide margin: six days spanning 5.7%
+from worst to best, with a max drawdown under 2% of the day's PnL every time and a Calmar
+between 52 and 67. They are also the two rounds that reproduced out of sample, which is not
+a coincidence and is the subject of
+[`official_submissions.md`](official_submissions.md#the-comparison-that-does-work).
+
+Worth knowing if you are comparing against anything written earlier: these numbers were
+wrong until the mark-to-market fix described in [`../NOTICE.md`](../NOTICE.md). The round 1
+and round 2 data contain ticks where the book is empty and the feed reports a mid of 0, and
+marking inventory at 0 booked a one-tick loss of nearly a million. Final PnL was never
+affected, but this table used to read a max drawdown of 1.36 million and a Sharpe of 0.23.
+
 ## Round 5: `traders/round5_final.py`
 
 50 products, position limit 10 on all of them, three days of data.

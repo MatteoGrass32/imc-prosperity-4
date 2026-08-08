@@ -83,6 +83,23 @@ def type_check_orders(orders: dict[Symbol, list[Order]]) -> None:
                     f"Order quantity of '{order}' is of type {type(order.quantity)}, expected an int")
 
 
+def mark_price(data: BacktestData, product: str, mid_price: float) -> float:
+    """The price to mark a position at, carrying the last mid through empty books.
+
+    A handful of ticks in the round 1 and round 2 data have no bids and no asks at all,
+    and the feed reports a mid of 0 for them. Marking to 0 values the inventory at
+    nothing, which shows up as a one-tick loss the size of the whole position: on round 1
+    that is a spurious -960k against a book that ends the day at +95k, and it destroys
+    drawdown, Sharpe, Sortino and Calmar for the run. There is no price at those ticks, so
+    the last real one is the honest thing to use. The empty book stays visible in the log
+    because every bid and ask column is blank.
+    """
+    if mid_price:
+        data.last_mid[product] = mid_price
+        return mid_price
+    return data.last_mid.get(product, 0.0)
+
+
 def create_activity_logs(
     state: TradingState,
     data: BacktestData,
@@ -90,12 +107,13 @@ def create_activity_logs(
 ) -> None:
     for product in data.products:
         row = data.prices[state.timestamp][product]
+        mid = mark_price(data, product, row.mid_price)
 
         product_profit_loss = data.profit_loss[product]
 
         position = state.position.get(product, 0)
         if position != 0:
-            product_profit_loss += position * row.mid_price
+            product_profit_loss += position * mid
 
         bid_prices_len = len(row.bid_prices)
         bid_volumes_len = len(row.bid_volumes)
@@ -118,7 +136,7 @@ def create_activity_logs(
             row.ask_volumes[1] if ask_volumes_len > 1 else "",
             row.ask_prices[2] if ask_prices_len > 2 else "",
             row.ask_volumes[2] if ask_volumes_len > 2 else "",
-            row.mid_price,
+            mid,
             product_profit_loss,
         ]
 

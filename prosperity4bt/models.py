@@ -82,7 +82,7 @@ class TradeRow:
     "symbol": "{self.trade.symbol}",
     "currency": "XIREC",
     "price": {self.trade.price},
-    "quantity": {self.trade.quantity},
+    "quantity": {self.trade.quantity}
   }}
         """.strip()
         )

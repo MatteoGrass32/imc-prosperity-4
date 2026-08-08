@@ -1,5 +1,5 @@
 from collections import defaultdict
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Optional
 
 from prosperity4bt.datamodel import Symbol, Trade
@@ -66,6 +66,11 @@ class BacktestData:
     observations: dict[int, ObservationRow]
     products: list[Symbol]
     profit_loss: dict[Symbol, float]
+
+    # Last mid price seen per product. The competition data contains ticks where the whole
+    # book is empty and mid_price is 0; marking a position at 0 there would book a loss the
+    # size of the entire position. See mark_price() in runner.py.
+    last_mid: dict[Symbol, float] = field(default_factory=dict)
 
 
 def create_backtest_data(

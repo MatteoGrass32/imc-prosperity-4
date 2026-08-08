@@ -34,7 +34,24 @@ make backtest
 
 That backtests the final round 5 trader on round 5 day 2 and prints per-product PnL, then
 Sharpe, Sortino, max drawdown and Calmar, then mean and mean-absolute inventory per product.
-It takes a couple of minutes on round 5 because that dataset is 36 MB per day.
+It also writes `plots/run_5-2.html`, described in step 5. It takes a couple of minutes on
+round 5 because that dataset is 36 MB per day.
+
+### 2b. Or run everything
+
+```bash
+make backtest-all
+```
+
+Every round on every day it shipped, fifteen runs, a chart each, and a summary table
+comparing each round against the official result it was scored on. About two minutes, and
+roughly 350 MB of logs and charts left behind, both gitignored and both removed by
+`make clean`. To narrow it down:
+
+```bash
+make backtest-all ARGS="--rounds 4 5"
+make backtest-all ARGS=--no-plots
+```
 
 ### 3. Choose the strategy and the day
 
@@ -68,14 +85,37 @@ To run it from VS Code or PyCharm with the run button instead of the terminal, p
 interpreter at `.venv` and give the module `prosperity4bt` those four arguments. There is no
 separate entry point and no notebook: the module is the whole interface.
 
-### 5. Charts
+### 5. Tick charts
+
+`make backtest` writes one automatically. To chart the newest run and open it:
+
+```bash
+make plot
+```
+
+Or point it at a specific run:
+
+```bash
+.venv/bin/python plot_run.py runs/run_4-2.log --open
+```
+
+Each chart is a single self-contained HTML file with three stacked panels sharing a tick
+axis: total PnL across the book, PnL per product, and position per product with the round's
+limit drawn on it. The positions are reconstructed from our own fills in the run's trade
+history, so the panel is a direct check on whether the book ever pushed against a limit.
+
+Ticks are thinned to a point budget, which is what makes this usable on round 5. Fifty
+products across ten thousand ticks is a million points, and charting that raw produces a
+20,000 pixel tall figure in a 21 MB page that will hang a browser. Thinned it is 6 MB and
+takes six seconds.
+
+There is also the Streamlit visualiser that came with the team environment:
 
 ```bash
 make visualize
 ```
 
-Opens a Streamlit page on the most recent `.log`, with PnL, market view and inventory
-against the position limits. Stop it with Ctrl+C.
+It reads the most recent `.log` and gives an interactive market view. Stop it with Ctrl+C.
 
 ---
 
@@ -104,7 +144,7 @@ easy to get wrong or forget. In this repository that is consolidated into one fi
 keyed by round. Selecting a round is now the `DAY` argument and nothing else. Adding a
 sixth round would mean one dict.
 
-Fixing this turned up two real defects in the tooling as it stood:
+Going through it turned up four real defects in the tooling as it stood. Two about limits:
 
 - The engine shipped with the **tutorial** products, `EMERALDS` and `TOMATOES`, which appear
   in no round 1 to 5 dataset. Every product that was actually traded fell through to the
@@ -116,9 +156,26 @@ Fixing this turned up two real defects in the tooling as it stood:
   competition, against true limits of 80, 200, 300 and 10. Both files now read the one
   registry, so they cannot disagree again.
 
-Neither fix changes any result reported here: the round 5 book self-limits to 10 internally,
-so it was never relying on the engine to stop it. They mean the numbers are now right for
-the right reason.
+And two worse ones, both of which made a run's output lie about the run:
+
+- **Inventory was marked to a price of zero whenever the book was empty.** The round 1 and
+  round 2 data contain ticks with no bids and no asks at all, 35 of them on round 1 day 0,
+  and the feed reports a mid price of 0 there. Marking 80 units of pepper root at 0 books a
+  one-tick loss of **-960,764** in a day that ends at +94,589. Final PnL survives it, because
+  the last tick has a real price, but everything path-dependent does not: max drawdown read
+  **1,356,627** against a true **1,607**, and annualised Sharpe read **0.23** against a true
+  **53.5**. Round 1 looked like a wild ride and is in fact the steadiest thing in this
+  repository. There is no price at those ticks, so the engine now carries the last real one.
+- **The trade history was not valid JSON.** Every trade object was written with a trailing
+  comma, so `json.loads` rejected the whole block and nothing could read our own fills back
+  out of a run. That is why the position panel in the charts exists now and did not before.
+
+Rounds 3, 4 and 5 have no empty books, so none of their numbers move. Verified by re-running
+them before and after: 85,297 and a 79,599 drawdown on round 4 day 3, 292,473 and 28,294 on
+round 5 day 2, identical either way. No PnL reported anywhere in this repository changes,
+because the round 5 book self-limits to 10 internally and was never relying on the engine to
+stop it. What changes is that the risk numbers are now right, and that round 1 and round 2
+have a risk profile at all.
 
 The engine itself is not mine. It is the environment my team built during the competition,
 vendored under its MIT licence with those changes plus a repaired `requirements.txt`, which
@@ -163,6 +220,11 @@ taking, tiered quotes and a retuned EMA, and produced 5.4% between them, with tw
 a number identical to the submission before them to the last decimal.
 
 The gain was in classifying the instrument, not in tuning the quoter.
+
+Backtested across its three days it makes 95,057, 95,580 and 94,589, with a max drawdown
+between 1,601 and 1,816. That is a Calmar in the high fifties and the tightest result in
+this repository, which matters for the
+[out-of-sample section](#how-the-strategies-held-up-out-of-sample) below.
 
 ### Round 2: same products, and what a strategy is worth once they change
 
@@ -300,6 +362,12 @@ estimated from the data beyond a level and a slope, and they reproduce out of sa
 within 3%. Round 3 prices an option chain off a volatility taken as given, and loses 37%.
 Round 5 is built on relationships estimated across 50 products, regressions of one
 instrument on another, ratio levels, lead-lag, and it gives back 82%.
+
+The in-sample risk numbers point the same way, which is the part that would have been
+usable at the time. Rounds 1 and 2 run a max drawdown under 2% of the day's PnL, a Calmar
+between 52 and 67, and six days spanning 5.7% from worst to best. Round 5's three days span
+52% and rise monotonically, which reads as a strategy improving and is equally consistent
+with a strategy fitting.
 
 The research had already flagged why. The Pebbles cluster carried the largest position in
 the book, and its own notes show a spread that walks in one direction across all three
