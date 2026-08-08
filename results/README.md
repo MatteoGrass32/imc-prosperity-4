@@ -4,6 +4,12 @@ Every number on this page was produced by the backtester in this repository, on 
 in `data/`, with the commands shown. Nothing is hand-copied from the competition site
 except the leaderboard screenshots, which are labelled as such.
 
+All of it is **in sample**: the three days shipped with each round were visible while the
+strategy was being written. How these figures compare against the unseen day each round was
+actually scored on is in
+[`official_submissions.md`](official_submissions.md#the-comparison-that-does-work), and for
+round 5 the gap is large.
+
 To reproduce a single run:
 
 ```bash

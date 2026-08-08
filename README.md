@@ -186,14 +186,14 @@ take. Scored **26,928**.
 Locally it makes 34,247, 50,290 and 43,245 across its three days, with drawdowns between
 7.6k and 22.6k. Worth remembering when reading the next section.
 
-### Round 4: the same instruments, rewritten, and the post-mortem
+### Round 4: the same instruments, rewritten, and a risk problem
 
 [`traders/round4_trader.py`](traders/round4_trader.py) is the round 3 strategy rewritten.
 Scored **32,771**, the team's worst algorithmic round at 1051st, and the only round where
 the overall rank moved down.
 
-The PnL is not the problem. Backtested on its three days it makes 4,722, then -17,345, then
-85,297. The problem is next to it:
+Backtested on its three days it makes 4,722, then -17,345, then 85,297. The PnL is not
+really the problem. The column next to it is:
 
 | Day | PnL | Max drawdown | Calmar |
 |---|--:|--:|--:|
@@ -206,20 +206,10 @@ Drawdown sits between 76k and 85k on every day regardless of the outcome, and on
 and multiplied the average drawdown by six. The book was putting up the same large risk
 every day and being paid for it once in three.
 
-The cause was a regime change the research had already flagged. The relationships were
-fitted on the visible days as mean-reverting, and out of sample they trended. The clearest
-record is in the cluster notes, where a spread mean walks in one direction across three
-consecutive days:
-
-```
-Day 2  spread_mean=+1937  max=+5194  min=-1015
-Day 3  spread_mean=+4328  max=+6361  min=+2409
-Day 4  spread_mean=+5831  max=+9050  min=+2399
-```
-
-The stationarity tests had said the same thing in advance: ADF p-values of 0.36 to 0.58 on
-the TG04 ratios, 0.11 to 0.52 on TG02. It was measured, written down, and then sized as if
-it had not been.
+That is a sizing failure rather than a signal failure, and it is worth separating from the
+question of whether the strategy generalised, which is dealt with
+[further down](#how-the-strategies-held-up-out-of-sample) and where round 4 does better than
+this section might suggest.
 
 ### Round 5: 50 products, 10 clusters
 
@@ -256,8 +246,10 @@ mean-reversion trade fires, and the hard shorts are explicit in that config.
 | Day 5-3 | 332,886 | 86.52 | 25,694 |
 | Day 5-4 | 444,286 | 109.40 | 20,150 |
 
-14.7 times the round 4 PnL on a third of the average drawdown. Scored **62,953**, 249th
-worldwide for the round.
+14.7 times the round 4 PnL on a third of the average drawdown, and the best-looking
+backtest of the competition by a wide margin. On the unseen day it scored **62,953**, 249th
+worldwide for the round, which is 82% below what those three days predicted. See
+[below](#how-the-strategies-held-up-out-of-sample).
 
 The ten cluster strategies are in [`traders/clusters/`](traders/clusters), each as
 submitted. Each was also submitted on its own, trading only its five products, so each has
@@ -265,21 +257,73 @@ an isolated score. The ten in isolation sum to 81,881 against 83,926 for the com
 merging them cost nothing and gained 2.5%, which is the evidence that the decomposition was
 a real partition of the problem rather than a convenient one.
 
-### The one number worth keeping
+### How the strategies held up out of sample
 
-A round stays open for practice submissions scored on data you can see, then the final
-submission is scored on data you cannot. In rounds 4 and 5 the same file went through both,
-byte-identical Python in each case:
+Prosperity scores you three times, on three different things, and conflating them is easy:
 
-| Round | Practice | Final | Change |
+| | Data | Length |
+|---|---|---|
+| Local backtest | the three days shipped with the round, all visible | 3 full days |
+| Practice submission on the site | the **first 10%** of the last of those same days | 1,000 of 10,000 ticks |
+| Official round result | the **next day**, never seen | 1 full day |
+
+The practice submission is therefore not an out-of-sample test at all. It re-runs data you
+already have, and only a tenth of it. Verified: its log reproduces the local CSV tick for
+tick, 1000 of 1000 mid-prices identical, and the reported profit is the raw PnL after 1,000
+ticks with no extrapolation.
+
+That leaves the local backtest and the official result as the only comparable pair, and they
+are only comparable if the two engines agree. They do. Run on the identical 10% segment the
+platform used:
+
+| Round | This backtester | IMC's | Difference |
 |---|--:|--:|--:|
-| 4 | 44,127 | 32,771 | **-25.7%** |
-| 5 | 83,926 | 62,953 | **-25.0%** |
+| 5 | 83,978 | 83,926 | 0.06% |
+| 4 | 44,256 | 44,127 | 0.29% |
 
-Two rounds, two unrelated strategies, two different sets of instruments, and the same
-haircut to within a percentage point. Roughly a quarter of the edge was fitted to the days
-that were visible. That it is stable across such different setups makes it a quantity to
-budget for rather than a result to explain away.
+So the numbers below are like for like: three visible days against the one unseen day that
+counted, same strategy file, engines agreeing to within a third of a percent.
+
+| Round | Visible days | Mean | Unseen day | Change |
+|---|---|--:|--:|--:|
+| 1 | 95,057 / 95,580 / 94,589 | 95,075 | 95,348 | **0%** |
+| 2 | 99,968 / 99,624 / 99,392 | 99,661 | 102,858 | **+3%** |
+| 3 | 34,247 / 50,290 / 43,245 | 42,594 | 26,928 | **-37%** |
+| 4 | 4,722 / -17,345 / 85,297 | 24,225 | 32,771 | **+35%** |
+| 5 | 292,473 / 332,886 / 444,286 | 356,548 | 62,953 | **-82%** |
+
+The ordering is the interesting part, because it is almost exactly the ordering of how much
+fitting each strategy did.
+
+Rounds 1 and 2 quote a spread around a fair value and ride a drift. There is nothing in them
+estimated from the data beyond a level and a slope, and they reproduce out of sample to
+within 3%. Round 3 prices an option chain off a volatility taken as given, and loses 37%.
+Round 5 is built on relationships estimated across 50 products, regressions of one
+instrument on another, ratio levels, lead-lag, and it gives back 82%.
+
+The research had already flagged why. The Pebbles cluster carried the largest position in
+the book, and its own notes show a spread that walks in one direction across all three
+visible days rather than oscillating:
+
+```
+Day 2  spread_mean=+1937  max=+5194  min=-1015
+Day 3  spread_mean=+4328  max=+6361  min=+2409
+Day 4  spread_mean=+5831  max=+9050  min=+2399
+```
+
+The stationarity tests said the same: ADF p-values of 0.36 to 0.58 on the TG04 ratios, 0.11
+to 0.52 on TG02. Not stationary, on the clusters the book leaned on hardest. It was
+measured, written down, and then sized as though it had not been.
+
+Two honest caveats. Round 4's visible days range from -17,345 to +85,297, so its +35% is
+noise around a mean that means very little. And 62,953 was still good for **249th in the
+world that day**, which says the field degraded too and that some of round 5's fall belongs
+to the day rather than to the strategy. Separating those two would need other teams'
+numbers, which I do not have.
+
+What survives both caveats is the shape: the strategy with the most estimated parameters
+produced the best backtest and the worst generalisation, and the evidence that it would was
+already sitting in the research notes before the round was submitted.
 
 ---
 

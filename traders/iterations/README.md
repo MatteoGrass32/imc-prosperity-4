@@ -4,6 +4,15 @@ Kept because the shape of these two sequences is more informative than either en
 Every profit figure is from IMC's own evaluation; submission ids are in
 [`../../results/official_submissions.md`](../../results/official_submissions.md).
 
+One thing to know before reading the numbers. A practice submission is scored on the
+**first 10% of one day you already have locally**, not on unseen data, so these are smoke
+tests rather than evaluations, and they are an order of magnitude smaller than a full-day
+result. For round 1 that scaling is almost exactly linear: version 7 scored 9,890 on a tenth
+of day 0, and the same strategy backtests at 94,589 over all of it. The final submission,
+scored on a full unseen day, made 95,348. Steady market making accrues PnL evenly, so a
+tenth of the day really is a tenth of the money. That is not true of the later rounds, where
+the same 10% window captured 19% of round 5's day and 52% of round 4's.
+
 ## Round 1, seven submissions
 
 | File | Profit | Change |
