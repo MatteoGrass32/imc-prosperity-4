@@ -88,4 +88,16 @@ instead of one shared config. That is 5.2x. The four iterations after it, which 
 dual-layer quoting scheme and a retuned EMA, produced 5.4% between them, and two of them
 returned a result identical to the submission before them down to the last decimal.
 
-The final round 1 submission scored 95,348.
+The final round 1 submission scored 95,348. The code for all seven is in
+[`../traders/iterations/`](../traders/iterations/README.md).
+
+## Round 2: what the round 1 strategy was worth once the products changed
+
+| Attempt | Submission | Profit |
+|---|---|--:|
+| Round 1 strategy adapted to the new products | 275149 | 8,654 |
+| Written for round 2 from its own data | 359813 | **102,858** |
+
+Same round, same evaluation, twelve times the result. The edge was a property of round 1's
+products rather than a technique that carried over, which is the cheapest possible version
+of the lesson that rounds 3 and 4 later paid for at full price.

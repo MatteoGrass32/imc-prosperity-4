@@ -139,6 +139,34 @@ not survive contact with unseen data, consistently enough that it should have be
 for rather than discovered afterwards. Submission ids and the rest of the official results
 are in [`results/official_submissions.md`](results/official_submissions.md).
 
+## Rounds 1 and 2, where the same lesson was cheap
+
+Round 1 was submitted seven times. The second submission to the third is 1,815 to 9,383, a
+5.2x, and it came from replacing a fixed 8-tick half-spread with pennying at a minimum edge
+and splitting the two products onto separate strategies. The four submissions after that
+added a dual-layer quoting scheme, aggressive taking, tiered quotes and a retuned EMA,
+and produced 5.4% between them.
+
+Round 2 then introduced new products. Adapting the round 1 strategy to them scored 8,654.
+Writing one from round 2's own data scored 102,858, twelve times more, on the same
+evaluation. Whatever made round 1 work belonged to round 1's products and did not travel.
+
+Both sequences, with the diffs that matter, are in
+[`traders/iterations/`](traders/iterations/README.md). They are the cheap version of what
+round 4 later paid for in full.
+
+## The manual rounds
+
+Every round also had a one-shot manual challenge, scored once with no chance to iterate.
+[`manual/`](manual/README.md) holds the MATLAB I wrote to size those decisions: a Monte
+Carlo pricer with antithetic variates covering a chooser, a digital and a down-and-out
+barrier alongside the vanillas, deltas by bump-and-revalue on shared random numbers, and a
+delta-hedged allocator that charges itself the hedging spread.
+
+The version worth reading is the one where the pricer returns a confidence interval and the
+allocator only trades when the whole interval clears the quote. It is the same lesson as the
+25% haircut above, reached from the other direction and before it cost anything.
+
 ## Layout
 
 ```
@@ -146,12 +174,16 @@ traders/
   round5_final.py        final round 5 book, 10 cluster strategies
   round4_trader.py       options market making on the VEV chain
   round3_trader.py       earlier version of the same
+  round2_final.py        market making, round 2 products
+  round1_final.py        market making, round 1 products
   clusters/              the 10 single-cluster traders, as submitted
     later_iterations/    TG01 and TG05 as reworked after their submissions
+  iterations/            the seven round 1 submissions and the round 2 carry-over
 research/
   notes/                 per-cluster statistics, ADF, FFT, lead-lag
   figures/               correlation, lead-lag, z-score and ratio plots
   prosperity_r5_analysis.ipynb
+manual/                  MATLAB for the manual rounds: option pricing, bids, allocation
 data/                    competition data, rounds 1 to 5, gzipped
 results/
   README.md              local backtests, day by day and cluster by cluster
@@ -161,9 +193,13 @@ prosperity4bt/           backtesting engine (see NOTICE.md)
 
 ## Attribution
 
-The backtesting engine (`prosperity4bt/`), `visualizer.py` and `quick_plot.py` are not my
-work. They come from the shared environment my team built during the competition and are
-redistributed here under their MIT licence, with three small changes of mine. Details and
-licence in [NOTICE.md](NOTICE.md).
+Prosperity is a team competition and FeynmanKac was three people, so every leaderboard
+figure on this page is a team result.
 
-`traders/`, `research/` and `results/` are mine. Data belongs to IMC Trading.
+The code is a different matter and worth being precise about. The backtesting engine
+(`prosperity4bt/`), `visualizer.py` and `quick_plot.py` are not mine: they come from the
+shared environment the team built during the competition and are redistributed here under
+their MIT licence, with three small changes of mine, detailed in [NOTICE.md](NOTICE.md).
+Everything under `traders/`, `research/`, `manual/` and `results/` is my own work.
+
+Data belongs to IMC Trading.
