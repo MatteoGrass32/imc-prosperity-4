@@ -58,11 +58,14 @@ accordingly:
   trend filter on top of the skew rather than as a pure pair.
 - **Structure that was drifting.** TG04 Pebbles, discussed below.
 
-Ten standalone single-cluster traders are in [`traders/clusters/`](traders/clusters). They
-are how each strategy was developed and tested in isolation before being merged into the
-final book.
+Ten standalone single-cluster traders are in [`traders/clusters/`](traders/clusters). Each
+was also submitted to the competition on its own, trading only its five products, so every
+cluster has an isolated score from IMC's own evaluation. The ten in isolation sum to 81,881
+and the combined book scored 83,926, so merging them cost nothing and gained 2.5%. The
+decomposition was a real partition of the problem, not a convenient one.
 
-Results, day by day and cluster by cluster: [`results/`](results/README.md).
+Results, day by day and cluster by cluster: [`results/`](results/README.md). Official
+submission results, with ids: [`results/official_submissions.md`](results/official_submissions.md).
 
 | | PnL | Sharpe (ann.) | Max drawdown |
 |---|--:|--:|--:|
@@ -119,6 +122,23 @@ relationship that is real in the training window, a deployment window where it n
 holds, and a system with no mechanism for noticing. The fix is not a better estimate of the
 relationship, it is sizing that degrades when the relationship stops describing the data.
 
+### How large the shift actually was
+
+The competition happens to measure this directly. A round is open for practice submissions
+scored on data you can see, and the final submission is scored on data you cannot. In rounds
+4 and 5 the same file went through both, byte-identical Python in each case:
+
+| Round | Practice | Final | Change |
+|---|--:|--:|--:|
+| 4 | 44,127 | 32,771 | **-25.7%** |
+| 5 | 83,926 | 62,953 | **-25.0%** |
+
+Two rounds, two unrelated strategies, two different sets of instruments, and the same
+haircut to within a percentage point. Whatever was being fitted, roughly a quarter of it did
+not survive contact with unseen data, consistently enough that it should have been budgeted
+for rather than discovered afterwards. Submission ids and the rest of the official results
+are in [`results/official_submissions.md`](results/official_submissions.md).
+
 ## Layout
 
 ```
@@ -126,13 +146,16 @@ traders/
   round5_final.py        final round 5 book, 10 cluster strategies
   round4_trader.py       options market making on the VEV chain
   round3_trader.py       earlier version of the same
-  clusters/              the 10 single-cluster traders, developed in isolation
+  clusters/              the 10 single-cluster traders, as submitted
+    later_iterations/    TG01 and TG05 as reworked after their submissions
 research/
   notes/                 per-cluster statistics, ADF, FFT, lead-lag
   figures/               correlation, lead-lag, z-score and ratio plots
   prosperity_r5_analysis.ipynb
 data/                    competition data, rounds 1 to 5, gzipped
-results/                 backtest tables and raw run output
+results/
+  README.md              local backtests, day by day and cluster by cluster
+  official_submissions.md  IMC's own scoring, with submission ids
 prosperity4bt/           backtesting engine (see NOTICE.md)
 ```
 
