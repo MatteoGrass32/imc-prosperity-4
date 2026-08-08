@@ -3,35 +3,12 @@ clear
 close all
 
 
-% **Manual trading challenge: “The Celestial Gardeners’ Guild”**
-% You trade against a number of counterparties that all have a **reserve price** ranging between **670** and **920**. On the next trading day, you’re able to sell all the product for a fair price, **920**.
-%The distribution of the bids is **uniformly distributed** at **increments of 5** between **670** and **920**. 
-%Example**: counterparties may have reserve prices at 675 and 680, but not at 676, 677, 678, 679, etc..
+% Round 3 manual. Counterparty reserve prices are uniform on 670..920 in steps of 5,
+% the product resells at 920, and you submit two bids. The first trades against any
+% reserve below it. The second trades against the reserves between the two bids, but
+% is penalised by ((920-avgB2)/(920-B2))^3 if it falls under the field's average
+% second bid. Below: B1 solved analytically, then the same thing by simulation.
 
-%You may submit **two bids**. If the first bid is **higher** than the
-%reserve price, they trade with you at your first bid. If your second bid is **higher** than the reserve price of a counterparty and **higher** than the mean of second bids of all players you trade at your second bid. If your second bid is **higher** than the reserve price, but **lower** than the mean of second bids of all players, the chance of a trade rapidly decreases: you will trade at your second bid **but** your PNL is penalised by:
-%Penalty = ((920-avgB2) / (920-B2) )^3
-
-%Q:is the "increments of 5 between 670 and 920" inclusive or naw
-%Ans:It's inclusive
-
-%Q:how do the two bids work, are you basically doing the same trade twice as
-%in youll bid once and then their "stock refreshes" ?
-%Ans: Each counterparty is willing to trade with you at most once
-
-%Q:If the first bid is higher than some reserve price and second bid is also higher than some reserve price, do we trade 2 units one at the price of first bid and another at the price of second bid?
-%Ans: If you first bid is already higher than a certain counterparties reserve price, you just trade it at that level (first bid), and then sell it at fair price later. 2nd bid is not even considered in that case.
-
-%Info: Counterparties are not other players, but predefined bots, with their reserve prices distributed according to distribution on Wiki
-%Info: Other player's 2nd bids do impact average of 2nd bids, and then the scaling formula applies (if you're below it)
-%Info:With a particular counterparty you can only trade maximally of 1 time. It's also possible to not trade with some at all of course (if both of your bids are <= to their reserve price)
-%Info:The number of counterparties is not given
-%Info: Penality is only applied to B2, not B1
-%(Info not verified but almost sure: B2 execute all the possibile trades
-%between B1 and B2, either with penalty or not
-%Info: B1 and B2 can be every integer number beteween 670 and 920 (B2 has
-%to be bigger than B1)
-%Info: B1 and B2 have to be strictly greater than the offers
 
 %LOW BID (p uniforme tra 670 e 920 con 51 masse di probabilità, uno ogni 5)
 n = 1; %n non è rilevante

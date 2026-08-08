@@ -72,9 +72,7 @@ second bid is a decision about other players, not about the distribution.
 **[`round3_bids/Bid1.m`](round3_bids/Bid1.m)** solves the first bid twice. Once analytically,
 accumulating probability mass below each candidate bid and taking the expectation directly,
 and once by simulating 10,000 draws of the counterparty pool. Two methods, one answer, which
-is the only reason to trust either. The file also carries the clarifications collected before
-committing: whether the range is inclusive, whether a counterparty can trade twice, and
-whether the penalty applies to the first bid.
+is the only reason to trust either.
 
 **[`round3_bids/Bid1and2_Simulation.m`](round3_bids/Bid1and2_Simulation.m)** searches the
 pair jointly. It grids B1 and B2 over 700 to 900, draws 500 populations of 1,000
