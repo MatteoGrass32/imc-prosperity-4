@@ -11,126 +11,95 @@ Each round had two halves. The **algorithmic** half was a trading bot, submitted
 on market data. The **manual** half was one decision, taken once, scored once. This
 repository has both, plus the backtester needed to re-run the algorithmic side.
 
+Round 5 is the round worth reading, and it has [its own section](#round-5-50-products-10-clusters)
+below. Rounds 1 to 4 get [a page each](#the-other-rounds).
+
 ---
 
 ## Running a backtest
 
-### 1. Setup, once
-
 ```bash
 git clone https://github.com/MatteoGrass32/imc-prosperity-4.git
 cd imc-prosperity-4
-make setup
+make setup                  # creates .venv, installs deps; the datasets are already here
+make backtest               # the round 5 trader on round 5 day 2, plus its chart
+make backtest-all           # every round on every day it shipped, 15 runs, ~2 min
 ```
 
-`make setup` creates `.venv` and installs the dependencies. The datasets are already in the
-repository, gzipped, so there is nothing to download.
+`make backtest` prints per-product PnL, then Sharpe, Sortino, max drawdown and Calmar, then
+mean and mean-absolute inventory per product, and writes `plots/run_5-2.html`. `make
+backtest-all` adds a summary table against each round's official result and leaves ~350 MB
+of logs and charts behind, all gitignored and all removed by `make clean`; narrow it with
+`ARGS="--rounds 4 5"` or `ARGS=--no-plots`.
 
-### 2. Run one
-
-```bash
-make backtest
-```
-
-That backtests the final round 5 trader on round 5 day 2 and prints per-product PnL, then
-Sharpe, Sortino, max drawdown and Calmar, then mean and mean-absolute inventory per product.
-It also writes `plots/run_5-2.html`, described in step 5. It takes a couple of minutes on
-round 5 because that dataset is 36 MB per day.
-
-### 2b. Or run everything
-
-```bash
-make backtest-all
-```
-
-Every round on every day it shipped, fifteen runs, a chart each, and a summary table
-comparing each round against the official result it was scored on. About two minutes, and
-roughly 350 MB of logs and charts left behind, both gitignored and both removed by
-`make clean`. To narrow it down:
-
-```bash
-make backtest-all ARGS="--rounds 4 5"
-make backtest-all ARGS=--no-plots
-```
-
-### 3. Choose the strategy and the day
-
-Two variables, `TRADER` and `DAY`. `DAY` is `<round>-<day>`:
+Pick a strategy and a day with `TRADER` and `DAY`, where `DAY` is `<round>-<day>`:
 
 ```bash
 make backtest TRADER=traders/round5_final.py DAY=5-4
-make backtest TRADER=traders/round4_trader.py DAY=4-3
 make backtest TRADER=traders/round1_final.py DAY=1--2     # day -2, note the two dashes
 ```
 
-Available days, matching the folders in `data/`:
+Every day below was visible while the strategy was being written. The day each round was
+actually scored on is not in this repository and never was, which is the subject of
+[the out-of-sample section](#how-the-strategies-held-up-out-of-sample):
 
-| Round | Days | Trader |
-|---|---|---|
-| 1 | `1--2`, `1--1`, `1-0` | `traders/round1_final.py` |
-| 2 | `2--1`, `2-0`, `2-1` | `traders/round2_final.py` |
-| 3 | `3-0`, `3-1`, `3-2` | `traders/round3_trader.py` |
-| 4 | `4-1`, `4-2`, `4-3` | `traders/round4_trader.py` |
-| 5 | `5-2`, `5-3`, `5-4` | `traders/round5_final.py` |
+| Round | Days shipped, all visible | Scored on | Trader |
+|---|---|--:|---|
+| 1 | `1--2`, `1--1`, `1-0` | day 1 | `traders/round1_final.py` |
+| 2 | `2--1`, `2-0`, `2-1` | day 2 | `traders/round2_final.py` |
+| 3 | `3-0`, `3-1`, `3-2` | day 3 | `traders/round3_trader.py` |
+| 4 | `4-1`, `4-2`, `4-3` | day 4 | `traders/round4_trader.py` |
+| 5 | `5-2`, `5-3`, `5-4` | day 5 | `traders/round5_final.py` |
 
-### 4. Without make, or from an IDE
-
-`make` only wraps one command. This is the same thing:
+`make` only wraps one command, so this is the same thing, and the same four arguments run it
+from an IDE with the interpreter pointed at `.venv`:
 
 ```bash
 .venv/bin/python -m prosperity4bt traders/round5_final.py 5-2 --data ./data --out ./run.log
 ```
 
-To run it from VS Code or PyCharm with the run button instead of the terminal, point the
-interpreter at `.venv` and give the module `prosperity4bt` those four arguments. There is no
-separate entry point and no notebook: the module is the whole interface.
+### What `final_pnl` means
 
-### 5. Tick charts
+Every per-day figure in this repository is one day, run on its own, **starting flat**. No day
+inherits the previous day's cash or position. Hand the same command a whole round instead of
+a day and it stitches the days end to end, so `final_pnl` becomes the running total:
 
-`make backtest` writes one automatically. To chart the newest run and open it:
-
-```bash
-make plot
+```
+per day:                          whole round in one invocation:
+1--2   final_pnl:  95,057         Round 1 day -2:  95,057
+1--1   final_pnl:  95,580         Round 1 day -1:  95,580
+1-0    final_pnl:  94,589         Round 1 day  0:  94,589
+                                  final_pnl:      285,226   <- the sum
 ```
 
-Or point it at a specific run:
+Where [`results/README.md`](results/README.md) shows a total it is the second kind: the sum
+of independent days, not an equity curve anyone could have traded.
 
-```bash
-.venv/bin/python plot_run.py runs/run_4-2.log --open
-```
+### Tick charts
 
-Each chart is a single self-contained HTML file with three stacked panels sharing a tick
-axis: total PnL across the book, PnL per product, and position per product with the round's
-limit drawn on it. The positions are reconstructed from our own fills in the run's trade
-history, so the panel is a direct check on whether the book ever pushed against a limit.
+`make backtest` writes one automatically; `make plot` charts the newest run and opens it, or
+point `plot_run.py` at a specific log. Each chart is a single self-contained HTML file with
+three panels sharing a tick axis: total PnL, PnL per series, and position per series with the
+round's limit drawn on it. Positions are reconstructed from our own fills, so that last panel
+is a direct check on whether the book ever pushed against a limit.
 
-Ticks are thinned to a point budget, which is what makes this usable on round 5. Fifty
-products across ten thousand ticks is a million points, and charting that raw produces a
-20,000 pixel tall figure in a 21 MB page that will hang a browser. Thinned it is 6 MB and
-takes six seconds.
+Round 5's fifty products are grouped into their ten clusters, with a filter above the chart
+to isolate one cluster and see its five products against the limit. Ticks are thinned to a
+point budget, which is what makes this usable at all: fifty products across ten thousand
+ticks is a million points, and charting that raw produces a 20,000 pixel tall figure in a
+21 MB page that will hang a browser.
 
-There is also the Streamlit visualiser that came with the team environment:
-
-```bash
-make visualize
-```
-
-It reads the most recent `.log` and gives an interactive market view. Stop it with Ctrl+C.
+`make visualize` starts the Streamlit visualiser that came with the team environment on the
+most recent `.log`. Stop it with Ctrl+C.
 
 ---
 
-## The backtester, and why every round needed a new one
+## The backtester
 
-This was the recurring cost of the competition and it is worth being explicit about, because
-the code below is shaped by it.
-
-Every round replaced the tradable universe. Not added to it, replaced it. Round 5 said so
-outright: you can no longer trade products from previous rounds. And each new universe came
-with its own position limits, which are the binding constraint on everything a market maker
-does. A backtester that does not know a product does not refuse to run. It falls back to a
-default limit and produces numbers that look fine and are wrong.
-
-There were three universes across the five rounds:
+Every round **replaced** the tradable universe rather than adding to it, and each new
+universe brought its own position limits — the binding constraint on everything a market
+maker does. A backtester that does not know a product does not refuse to run: it falls back
+to a default and produces numbers that look fine and are wrong.
 
 | Rounds | Products | Position limit |
 |---|---|--:|
@@ -138,149 +107,18 @@ There were three universes across the five rounds:
 | 3, 4 | `HYDROGEL_PACK`, `VELVETFRUIT_EXTRACT`, plus the `VEV_*` option chain | 200 and 300 |
 | 5 | 50 products in 10 groups of 5 | 10 |
 
-During the competition, moving between them meant editing the engine, and the edits were
-easy to get wrong or forget. In this repository that is consolidated into one file,
-[`prosperity4bt/rounds.py`](prosperity4bt/rounds.py), which holds every product and limit
-keyed by round. Selecting a round is now the `DAY` argument and nothing else. Adding a
-sixth round would mean one dict.
+All of it now lives in one file, [`prosperity4bt/rounds.py`](prosperity4bt/rounds.py), keyed
+by round. Consolidating it turned up four real defects in the tooling, two of which made a
+run's output lie about the run: inventory marked to a price of zero on empty books, which
+put a spurious -960,764 into round 1 and reported a max drawdown of 1.36 million against a
+true 1,607, and a trade history that was not valid JSON, which is why the position panel in
+the charts exists now and did not before. Neither changes any final PnL in this repository.
 
-Going through it turned up four real defects in the tooling as it stood. Two about limits:
-
-- The engine shipped with the **tutorial** products, `EMERALDS` and `TOMATOES`, which appear
-  in no round 1 to 5 dataset. Every product that was actually traded fell through to the
-  default of 80. That is correct for rounds 1 and 2 by coincidence, far too loose for round
-  5, where the real limit is 10, and far too tight for rounds 3 and 4, where it is 200 and
-  300. Round 5 backtests ran effectively unconstrained and rounds 3 and 4 ran clipped.
-- `visualizer.py` kept its **own second copy** of the limits, also tutorial-only, with a
-  fallback of 20. The red inventory lines were therefore drawn at 20 in every round of the
-  competition, against true limits of 80, 200, 300 and 10. Both files now read the one
-  registry, so they cannot disagree again.
-
-And two worse ones, both of which made a run's output lie about the run:
-
-- **Inventory was marked to a price of zero whenever the book was empty.** The round 1 and
-  round 2 data contain ticks with no bids and no asks at all, 35 of them on round 1 day 0,
-  and the feed reports a mid price of 0 there. Marking 80 units of pepper root at 0 books a
-  one-tick loss of **-960,764** in a day that ends at +94,589. Final PnL survives it, because
-  the last tick has a real price, but everything path-dependent does not: max drawdown read
-  **1,356,627** against a true **1,607**, and annualised Sharpe read **0.23** against a true
-  **53.5**. Round 1 looked like a wild ride and is in fact the steadiest thing in this
-  repository. There is no price at those ticks, so the engine now carries the last real one.
-- **The trade history was not valid JSON.** Every trade object was written with a trailing
-  comma, so `json.loads` rejected the whole block and nothing could read our own fills back
-  out of a run. That is why the position panel in the charts exists now and did not before.
-
-Rounds 3, 4 and 5 have no empty books, so none of their numbers move. Verified by re-running
-them before and after: 85,297 and a 79,599 drawdown on round 4 day 3, 292,473 and 28,294 on
-round 5 day 2, identical either way. No PnL reported anywhere in this repository changes,
-because the round 5 book self-limits to 10 internally and was never relying on the engine to
-stop it. What changes is that the risk numbers are now right, and that round 1 and round 2
-have a risk profile at all.
-
-The engine itself is not mine. It is the environment my team built during the competition,
-vendored under its MIT licence with those changes plus a repaired `requirements.txt`, which
-was missing four packages the engine imports and without which it does not start. Details in
-[NOTICE.md](NOTICE.md). Round 5 was also run against a separate Rust backtester,
-[GeyzsoN/prosperity_rust_backtester](https://github.com/GeyzsoN/prosperity_rust_backtester),
-which is not reproduced here.
+**Full write-up, including what moved and what did not: [`docs/backtester.md`](docs/backtester.md).**
 
 ---
 
-## The strategies, round by round
-
-Full local backtests in [`results/README.md`](results/README.md). Official scoring, with
-submission ids, in [`results/official_submissions.md`](results/official_submissions.md).
-
-### Round 1: market making, and seven submissions
-
-Two products, quoting both sides. [`traders/round1_final.py`](traders/round1_final.py)
-scored **95,348**.
-
-The seven submissions leading to it are in
-[`traders/iterations/`](traders/iterations/README.md), and their shape is the interesting
-part: 1,639, then 1,815, then **9,383**, then 9,552, 9,552, 9,890, 9,890.
-
-One change did it, and the data says why. The two products are not the same kind of object:
-
-| Product | Mean mid | Drift per day |
-|---|--:|--:|
-| `ASH_COATED_OSMIUM` | ~9,984 | -16.5, -1.0, -6.0 |
-| `INTARIAN_PEPPER_ROOT` | 10,483 to 12,474 | +1003.0, +999.5, +1001.5 |
-
-Osmium sits on a fair value near 10,000. Pepper root climbs by a thousand a day, every day,
-and ends the third session 30% above where it opened the first. Versions 1 and 2 market made
-both of them, pepper root through an EMA-anchored quoter. Quoting a drift like that means
-selling into it all day.
-
-Version 3 stopped treating it as a market making problem. Pepper root moved to a
-`DirectionalTrendStrategy`, commented in the file as drift exploitation, while osmium stayed
-a market maker but went from a fixed 8-tick half-spread to pennying at a minimum edge of 2.
-That is 5.2x. The four submissions after it added a dual-layer quoting scheme, aggressive
-taking, tiered quotes and a retuned EMA, and produced 5.4% between them, with two returning
-a number identical to the submission before them to the last decimal.
-
-The gain was in classifying the instrument, not in tuning the quoter.
-
-Backtested across its three days it makes 95,057, 95,580 and 94,589, with a max drawdown
-between 1,601 and 1,816. That is a Calmar in the high fifties and the tightest result in
-this repository, which matters for the
-[out-of-sample section](#how-the-strategies-held-up-out-of-sample) below.
-
-### Round 2: same products, and what a strategy is worth once they change
-
-New products, same shape of problem. [`traders/round2_final.py`](traders/round2_final.py)
-scored **102,858**.
-
-The first attempt was the round 1 strategy adapted to the new products,
-[`traders/iterations/round2_from_round1.py`](traders/iterations/round2_from_round1.py). It
-scored **8,654**. Same round, same evaluation, twelve times less. Whatever made round 1 work
-was a property of round 1's products and did not travel. Rounds 3 and 4 later paid for the
-same lesson at a much higher price.
-
-### Round 3: options on a new underlying
-
-Two underlyings plus a ten-strike option chain. Both underlyings turned out to be
-mean-reverting rather than trending, which is what makes them quotable. Across all three
-days `HYDROGEL_PACK` stays inside a band of 188 ticks around a mean of 9,991, and
-`VELVETFRUIT_EXTRACT` inside 102 around 5,250. Neither goes anywhere, which is the opposite
-of the pepper root problem in round 1.
-
-![HYDROGEL_PACK mid price](research/round3/hydrogel_pack_mid.png)
-
-[`traders/round3_trader.py`](traders/round3_trader.py) market makes the chain with
-per-strike parameters, wider quotes near the money where adverse selection costs most, and
-skips the far out-of-the-money strikes priced at the minimum tick where there is no edge to
-take. Scored **26,928**.
-
-Locally it makes 34,247, 50,290 and 43,245 across its three days, with drawdowns between
-7.6k and 22.6k. Worth remembering when reading the next section.
-
-### Round 4: the same instruments, rewritten, and a risk problem
-
-[`traders/round4_trader.py`](traders/round4_trader.py) is the round 3 strategy rewritten.
-Scored **32,771**, the team's worst algorithmic round at 1051st, and the only round where
-the overall rank moved down.
-
-Backtested on its three days it makes 4,722, then -17,345, then 85,297. The PnL is not
-really the problem. The column next to it is:
-
-| Day | PnL | Max drawdown | Calmar |
-|---|--:|--:|--:|
-| 4-1 | 4,722 | 76,578 | 0.06 |
-| 4-2 | -17,345 | 84,499 | -0.21 |
-| 4-3 | 85,297 | 79,599 | 1.07 |
-
-Drawdown sits between 76k and 85k on every day regardless of the outcome, and on day 1 it is
-16 times the PnL. Against round 3 on the same instruments, the rewrite kept 57% of the PnL
-and multiplied the average drawdown by six. The book was putting up the same large risk
-every day and being paid for it once in three.
-
-That is a sizing failure rather than a signal failure, and it is worth separating from the
-question of whether the strategy generalised, which is dealt with
-[further down](#how-the-strategies-held-up-out-of-sample) and where round 4 does better than
-this section might suggest.
-
-### Round 5: 50 products, 10 clusters
+## Round 5: 50 products, 10 clusters
 
 Round 5 replaced everything with 50 new products, all limited to 10. Handled one at a time
 that is 50 research problems on a competition clock. They came in 10 labelled groups of 5,
@@ -302,12 +140,15 @@ It produced three kinds of cluster, and
   263 points against a spread of 19, so the trade paid, but ADF p-values of 0.11 to 0.52
   said the ratios were not stationary. Traded with a trend filter on top of the skew rather
   than as a pure pair.
-- **Structure that was drifting.** TG04 Pebbles, the cluster in the post-mortem above.
+- **Structure that was drifting.** TG04 Pebbles, the cluster in the
+  [post-mortem below](#how-the-strategies-held-up-out-of-sample).
 
 What changed from round 4 was not the models but where the risk control sits. Limits and
 thresholds are declared per cluster in one config block instead of being scattered through
 the signal code, clusters whose ratios failed ADF get a trend filter before any
 mean-reversion trade fires, and the hard shorts are explicit in that config.
+
+Backtested on the three days that shipped with the round, each run on its own:
 
 | | PnL | Sharpe (ann.) | Max drawdown |
 |---|--:|--:|--:|
@@ -326,7 +167,28 @@ an isolated score. The ten in isolation sum to 81,881 against 83,926 for the com
 merging them cost nothing and gained 2.5%, which is the evidence that the decomposition was
 a real partition of the problem rather than a convenient one.
 
-### How the strategies held up out of sample
+---
+
+## The other rounds
+
+One page each, with the strategy, the local backtest and what it was worth out of sample:
+
+| Round | What it was | Official | Backtest mean | Held up? |
+|---|---|--:|--:|---|
+| [1](docs/rounds/round1.md) | market making two products | 95,348 | 95,075 | yes, **0%** |
+| [2](docs/rounds/round2.md) | new products, same shape of problem | 102,858 | 99,661 | yes, **+3%** |
+| [3](docs/rounds/round3.md) | two underlyings and a ten-strike option chain | 26,928 | 42,594 | **-37%** |
+| [4](docs/rounds/round4.md) | round 3 rewritten, and a sizing failure | 32,771 | 24,225 | **+35%**, noisy |
+
+Two of them carry a lesson that outlived the round. Round 2's first attempt was round 1's
+strategy pointed at the new products, and it scored 8,654 against the 102,858 of a strategy
+written from round 2's own data — twelve times less, in the same round, under the same
+evaluation. And round 4 kept 57% of round 3's PnL on the same instruments while multiplying
+the average drawdown by six, which is a sizing failure rather than a signal one.
+
+---
+
+## How the strategies held up out of sample
 
 Prosperity scores you three times, on three different things, and conflating them is easy:
 
@@ -336,8 +198,19 @@ Prosperity scores you three times, on three different things, and conflating the
 | Practice submission on the site | the **first 10%** of the last of those same days | 1,000 of 10,000 ticks |
 | Official round result | the **next day**, never seen | 1 full day |
 
-The practice submission is therefore not an out-of-sample test at all. It re-runs data you
-already have, and only a tenth of it. Verified: its log reproduces the local CSV tick for
+One thing to get straight before reading any of the numbers, because the day names invite
+the opposite conclusion: IMC numbers days continuously across the whole competition rather
+than restarting at 1 each round. Round 5 ships days 2, 3 and 4 and is scored on day 5; round
+1 ships days -2, -1 and 0 and is scored on day 1. So the **highest-numbered day in any
+`data/` folder is the last day you could see, not the day you were scored on**. The scoring
+day was never released and is not in this repository. Every "unseen day" figure below comes
+from IMC's own evaluation, traceable by submission id in
+[`results/official_submissions.md`](results/official_submissions.md), which confirms it by
+parsing the submission artefacts: the round 5 final ran 10,000 ticks on day 5, while the
+round 5 practice ran 1,000 ticks on day 4.
+
+That also makes the practice submission not an out-of-sample test at all. It re-runs data
+you already have, and only a tenth of it. Verified: its log reproduces the local CSV tick for
 tick, 1000 of 1000 mid-prices identical, and the reported profit is the raw PnL after 1,000
 ticks with no extrapolation.
 
@@ -426,12 +299,16 @@ traders/
   clusters/          the 10 round 5 cluster strategies, as submitted
     later_iterations/  TG01 and TG05 as reworked afterwards
   iterations/        the seven round 1 submissions, and the round 2 carry-over
+docs/
+  rounds/            rounds 1 to 4, one page each
+  backtester.md      what the engine got wrong and what changed
 research/            per-cluster statistics, figures, round 5 notebook
 manual/              MATLAB for the manual rounds, one folder per round
 data/                competition data, rounds 1 to 5, gzipped
 results/             local backtests, official scoring, leaderboard screenshots
 prosperity4bt/       the backtesting engine
   rounds.py          products and position limits, keyed by round
+plot_run.py          tick charts for a run, one self-contained HTML file
 visualizer.py        Streamlit charts for a run
 ```
 
@@ -450,6 +327,6 @@ The code is a different matter and worth being precise about. The backtesting en
 (`prosperity4bt/`), `visualizer.py` and `quick_plot.py` are not mine: they come from the
 shared environment the team built during the competition and are redistributed here under
 their MIT licence, with the changes described above and in [NOTICE.md](NOTICE.md).
-Everything under `traders/`, `research/`, `manual/` and `results/` is my own work.
+Everything under `traders/`, `research/`, `manual/`, `results/` and `docs/` is my own work.
 
 Data belongs to IMC Trading.

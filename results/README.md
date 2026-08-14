@@ -10,6 +10,21 @@ actually scored on is in
 [`official_submissions.md`](official_submissions.md#the-comparison-that-does-work), and for
 round 5 the gap is large.
 
+The day names make that easy to misread, so it is worth stating plainly. IMC numbers days
+continuously across the competition instead of restarting at 1 each round, so round 5's
+three visible days are numbered 2, 3 and 4 and its scoring day is day 5. **Day 5-4 is the
+third training day, not the held-out one.** No table on this page contains the scoring day
+of any round: that data was never released and is not in this repository.
+
+Two reading notes on the numbers themselves:
+
+- **Each day is a separate run that starts flat.** No day inherits the previous day's cash
+  or position, so a day's PnL is that day alone.
+- **A `Total` row is the sum of independent days**, not an equity curve anyone could have
+  traded. It happens to equal what the engine reports if you hand it a whole round rather
+  than a single day, because that mode stitches the days end to end — see
+  [the README](../README.md#what-final_pnl-means).
+
 To reproduce a single run:
 
 ```bash
@@ -53,7 +68,10 @@ affected, but this table used to read a max drawdown of 1.36 million and a Sharp
 | 5-2 | 292,473 | 74.92 | 0.0694 | 28,294 | 10.34 |
 | 5-3 | 332,886 | 86.52 | 0.0805 | 25,694 | 12.96 |
 | 5-4 | 444,286 | 109.40 | 0.1022 | 20,150 | 22.05 |
-| **Total** | **1,069,645** | | | | |
+| **Sum of the three** | **1,069,645** | | | | |
+
+All three of these days were visible while the strategy was being written. The day it was
+scored on, day 5, is not here and never was; it returned 62,953.
 
 PnL is positive on all three days, drawdown shrinks as PnL grows, and even the weakest day
 returns 10x its own max drawdown. This is the behaviour the round 4 book did not have.
@@ -87,7 +105,7 @@ Two underlyings plus a 10-strike option chain (position limits 200 and 300).
 | 4-1 | 4,722 | 0.77 | 76,578 | 0.06 |
 | 4-2 | **-17,345** | **-2.79** | 84,499 | -0.21 |
 | 4-3 | 85,297 | 14.11 | 79,599 | 1.07 |
-| **Total** | **72,674** | | | |
+| **Sum of the three** | **72,674** | | | |
 
 The interesting column is the drawdown one. It sits between 76k and 85k on every day,
 independent of whether the day made or lost money, and on day 1 it is 16x the PnL. The
@@ -104,7 +122,7 @@ Same instruments as round 4, earlier version of the strategy.
 | 3-0 | 34,247 | 36.91 | 7,658 | 4.47 |
 | 3-1 | 50,290 | 40.03 | 9,116 | 5.52 |
 | 3-2 | 43,245 | 19.40 | 22,610 | 1.91 |
-| **Total** | **127,782** | | | |
+| **Sum of the three** | **127,782** | | | |
 
 Worth reading next to round 4. Same market, smaller and steadier PnL, average drawdown
 13.1k against 80.2k. The round 4 rewrite kept 57% of the PnL and multiplied the average
@@ -113,7 +131,8 @@ drawdown by six.
 ## Note on position limits
 
 The upstream backtester shipped with round 1 limits only, so anything else silently fell
-back to a default of 80. `prosperity4bt/data.py` now carries the real limits: 10 for all
+back to a default of 80. [`prosperity4bt/rounds.py`](../prosperity4bt/rounds.py) now carries
+the real limits, and `data.py` and `visualizer.py` both read that one registry: 10 for all
 50 round 5 products (round 5 wiki), 200 for the two round 3/4 underlyings and 300 for the
 VEV option chain. Without this, round 5 runs are unconstrained and round 3/4 runs are
 clipped to a limit that never existed.
