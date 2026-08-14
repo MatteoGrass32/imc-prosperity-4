@@ -140,8 +140,8 @@ It produced three kinds of cluster, and
   263 points against a spread of 19, so the trade paid, but ADF p-values of 0.11 to 0.52
   said the ratios were not stationary. Traded with a trend filter on top of the skew rather
   than as a pure pair.
-- **Structure that was drifting.** TG04 Pebbles, the cluster in the
-  [post-mortem below](#how-the-strategies-held-up-out-of-sample).
+- **Structure that was drifting.** TG04 Pebbles, which carried the largest position in the
+  book and turned out to be the cluster it should have leaned on least.
 
 What changed from round 4 was not the models but where the risk control sits. Limits and
 thresholds are declared per cluster in one config block instead of being scattered through
@@ -158,8 +158,8 @@ Backtested on the three days that shipped with the round, each run on its own:
 
 14.7 times the round 4 PnL on a third of the average drawdown, and the best-looking
 backtest of the competition by a wide margin. On the unseen day it scored **62,953**, 249th
-worldwide for the round, which is 82% below what those three days predicted. See
-[below](#how-the-strategies-held-up-out-of-sample).
+worldwide for the round, which is 82% below what those three days predicted — the gap
+[the post-mortem below](#how-the-strategies-held-up-out-of-sample) is about.
 
 The ten cluster strategies are in [`traders/clusters/`](traders/clusters), each as
 submitted. Each was also submitted on its own, trading only its five products, so each has
@@ -178,7 +178,7 @@ One page each, with the strategy, the local backtest and what it was worth out o
 | [1](docs/rounds/round1.md) | market making two products | 95,348 | 95,075 | yes, **0%** |
 | [2](docs/rounds/round2.md) | new products, same shape of problem | 102,858 | 99,661 | yes, **+3%** |
 | [3](docs/rounds/round3.md) | two underlyings and a ten-strike option chain | 26,928 | 42,594 | **-37%** |
-| [4](docs/rounds/round4.md) | round 3 rewritten, and a sizing failure | 32,771 | 24,225 | **+35%**, noisy |
+| [4](docs/rounds/round4.md) | round 3 rewritten on the same instruments | 32,771 | 24,225 | **+35%**, noisy |
 
 Two of them carry a lesson that outlived the round. Round 2's first attempt was round 1's
 strategy pointed at the new products, and it scored 8,654 against the 102,858 of a strategy
