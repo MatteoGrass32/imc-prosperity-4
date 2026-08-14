@@ -321,7 +321,6 @@ FeynmanKac was one of two teams from BlackSwan Quants. We talked through a lot o
 with the other one, Stockastici, over the course of the competition, and their repository is
 at [Emaflick/Prosperity-4-Stockastici](https://github.com/Emaflick/Prosperity-4-Stockastici).
 Where the two repositories reach similar conclusions about the same products, that is why.
-The code here is written by me.
 
 The code is a different matter and worth being precise about. The backtesting engine
 (`prosperity4bt/`), `visualizer.py` and `quick_plot.py` are not mine: they come from the
