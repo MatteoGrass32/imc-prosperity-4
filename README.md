@@ -18,13 +18,30 @@ below. Rounds 1 to 4 get [a page each](#the-other-rounds).
 
 ## Running a backtest
 
+Needs `git`, `make`, and Python **3.10 or newer** — the code uses `list[...]` and `X | None`
+annotations, which older versions reject on import. All three ship with macOS.
+
 ```bash
 git clone https://github.com/MatteoGrass32/imc-prosperity-4.git
 cd imc-prosperity-4
-make setup                  # creates .venv, installs deps; the datasets are already here
-make backtest               # the round 5 trader on round 5 day 2, plus its chart
-make backtest-all           # every round on every day it shipped, 15 runs, ~2 min
+make setup                  # .venv and dependencies: 1-2 min, ~500 MB on disk
+make backtest               # round 5 trader on round 5 day 2, plus its chart: ~20 s
+make backtest-all           # every round on every day it shipped: 15 runs, ~2 min
 ```
+
+The datasets ship with the repository, gzipped, so there is nothing else to download.
+
+**Check it worked.** `make backtest` ends with exactly these three numbers:
+
+```
+final_pnl: 292,473
+annualized_sharpe: 74.9206
+max_drawdown_abs: 28,294
+```
+
+If they match, the engine and the data are intact and every other figure on this page
+reproduces. If it was `make setup` that failed instead, that is the environment rather than
+the repository: check `python3 --version` first.
 
 `make backtest` prints per-product PnL, then Sharpe, Sortino, max drawdown and Calmar, then
 mean and mean-absolute inventory per product, and writes `plots/run_5-2.html`. `make
